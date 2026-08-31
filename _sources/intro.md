@@ -1,11 +1,33 @@
-# Welcome to your Jupyter Book
+# 📊 Tareas de Machine Learning
 
-This is a small sample book to give you a feel for how book content is
-structured.
-It shows off a few of the major file types, as well as some sample content.
-It does not go in-depth into any particular topic - check out [the Jupyter Book documentation](https://jupyterbook.org) for more information.
+Bienvenido a mi portafolio de tareas de Machine Learning. Aquí encontrarás los proyectos desarrollados durante el curso.
 
-Check out the content pages bundled with this sample book to see more.
+## 🎯 Sobre este libro
 
-```{tableofcontents}
-```
+Este libro recopila las tareas prácticas de Machine Learning, donde aplicamos diferentes técnicas y algoritmos de aprendizaje automático a problemas reales.
+
+## 📚 Tareas incluidas
+
+### Tarea 1: Clasificación de Riesgo Crediticio
+- **Tecnologías**: PySpark, scikit-learn, LIME
+- **Descripción**: Proyecto integrador de aprendizaje automático para clasificación de riesgo crediticio
+
+### Tarea 2: Predicción de Enfermedades Cardíacas
+- **Tecnologías**: Scikit-learn, análisis de datos
+- **Descripción**: Análisis y predicción de enfermedades cardíacas usando diferentes algoritmos
+
+## 🛠 Tecnologías utilizadas
+
+- Python
+- Scikit-learn
+- PySpark
+- Jupyter Notebooks
+- LIME para explicabilidad
+
+## 📖 Navegación
+
+Usa el menú lateral izquierdo para explorar las diferentes tareas. Cada tarea contiene el código, análisis y resultados completos.
+
+---
+
+*Este libro fue creado con [Jupyter Book](https://jupyterbook.org)*
