@@ -8,7 +8,7 @@
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
 
-    <title>Cargar Dataset y EDA &#8212; Tareas de Machine Learning</title>
+    <title>Proyecto Integrador de Aprendizaje Automático: Predicción de Enfermedades Cardíacas &#8212; Tareas de Machine Learning</title>
   
   
   
@@ -192,14 +192,8 @@
   
   
   
-    
-    
-      
-    
-    
-    <img src="../../../_static/logo.png" class="logo__image only-light" alt="Tareas de Machine Learning - Home"/>
-    <img src="../../../_static/logo.png" class="logo__image only-dark pst-js-only" alt="Tareas de Machine Learning - Home"/>
   
+    <p class="title logo__title">Tareas de Machine Learning</p>
   
 </a></div>
         <div class="sidebar-primary-item">
@@ -414,7 +408,7 @@
               
 
 <div id="jb-print-docs-body" class="onlyprint">
-    <h1>Cargar Dataset y EDA</h1>
+    <h1>Proyecto Integrador de Aprendizaje Automático: Predicción de Enfermedades Cardíacas</h1>
     <!-- Table of contents -->
     <div id="print-main-content">
         <div id="jb-print-toc">
@@ -424,18 +418,21 @@
             </div>
             <nav aria-label="Page">
                 <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Cargar Dataset y EDA</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#separar-x-e-y">1. Separar X e y</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#identificar-variables-numericas-y-categoricas">2. Identificar variables numéricas y categóricas</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#division-antes-del-escalado">3. División ANTES del escalado</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-el-preprocesador-columntransformer">4. Crear el preprocesador (ColumnTransformer)</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-el-pipeline">5. Crear el Pipeline</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearchcv">6. GridSearchCV</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluacion">7. Evaluación</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#matriz-de-confusion">8. Matriz de confusión</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#auc">9. AUC</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#curva-roc">10. Curva ROC</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mejores-parametros">11. Mejores parámetros</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Proyecto Integrador de Aprendizaje Automático: Predicción de Enfermedades Cardíacas</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cargar-dataset-y-eda">Cargar Dataset y EDA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#separar-x-e-y">1. Separar X e y</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identificar-variables-numericas-y-categoricas">2. Identificar variables numéricas y categóricas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#division-antes-del-escalado">3. División ANTES del escalado</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-el-preprocesador-columntransformer">4. Crear el preprocesador (ColumnTransformer)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-el-pipeline">5. Crear el Pipeline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearchcv">6. GridSearchCV</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluacion">7. Evaluación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matriz-de-confusion">8. Matriz de confusión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#auc">9. AUC</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#curva-roc">10. Curva ROC</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mejores-parametros">11. Mejores parámetros</a></li>
+</ul>
+</li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#los-otros-modelos">6. Los otros modelos</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#svc">6.1 SVC</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression">6.2 Logistic Regression</a></li>
@@ -461,7 +458,9 @@
 <div id="searchbox"></div>
                 <article class="bd-article">
                   
-  <div class="cell docutils container">
+  <section class="tex2jax_ignore mathjax_ignore" id="proyecto-integrador-de-aprendizaje-automatico-prediccion-de-enfermedades-cardiacas">
+<h1>Proyecto Integrador de Aprendizaje Automático: Predicción de Enfermedades Cardíacas<a class="headerlink" href="#proyecto-integrador-de-aprendizaje-automatico-prediccion-de-enfermedades-cardiacas" title="Link to this heading">#</a></h1>
+<div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
@@ -481,8 +480,8 @@
 </div>
 </div>
 </div>
-<section class="tex2jax_ignore mathjax_ignore" id="cargar-dataset-y-eda">
-<h1>Cargar Dataset y EDA<a class="headerlink" href="#cargar-dataset-y-eda" title="Link to this heading">#</a></h1>
+<section id="cargar-dataset-y-eda">
+<h2>Cargar Dataset y EDA<a class="headerlink" href="#cargar-dataset-y-eda" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Cargar datos (asegúrate de que el archivo heart.csv esté en la misma carpeta)</span>
@@ -517,8 +516,8 @@
 </div>
 </div>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="separar-x-e-y">
-<h1>1. Separar X e y<a class="headerlink" href="#separar-x-e-y" title="Link to this heading">#</a></h1>
+<section id="separar-x-e-y">
+<h2>1. Separar X e y<a class="headerlink" href="#separar-x-e-y" title="Link to this heading">#</a></h2>
 <p>El dataset tiene 12 variables:</p>
 <ul class="simple">
 <li><p>11 predictoras → X</p></li>
@@ -533,8 +532,8 @@
 </div>
 </div>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="identificar-variables-numericas-y-categoricas">
-<h1>2. Identificar variables numéricas y categóricas<a class="headerlink" href="#identificar-variables-numericas-y-categoricas" title="Link to this heading">#</a></h1>
+<section id="identificar-variables-numericas-y-categoricas">
+<h2>2. Identificar variables numéricas y categóricas<a class="headerlink" href="#identificar-variables-numericas-y-categoricas" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">numeric_features</span> <span class="o">=</span> <span class="p">[</span>
@@ -558,8 +557,8 @@
 </div>
 </div>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="division-antes-del-escalado">
-<h1>3. División ANTES del escalado<a class="headerlink" href="#division-antes-del-escalado" title="Link to this heading">#</a></h1>
+<section id="division-antes-del-escalado">
+<h2>3. División ANTES del escalado<a class="headerlink" href="#division-antes-del-escalado" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span>
@@ -577,8 +576,8 @@
 </div>
 <p>Uso stratify=y porque estamos haciendo clasificación binaria y queremos mantener aproximadamente la misma proporción de HeartDisease = 0/1 en train y test.</p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="crear-el-preprocesador-columntransformer">
-<h1>4. Crear el preprocesador (ColumnTransformer)<a class="headerlink" href="#crear-el-preprocesador-columntransformer" title="Link to this heading">#</a></h1>
+<section id="crear-el-preprocesador-columntransformer">
+<h2>4. Crear el preprocesador (ColumnTransformer)<a class="headerlink" href="#crear-el-preprocesador-columntransformer" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.compose</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColumnTransformer</span>
@@ -603,8 +602,8 @@
 <p>La clave está en que el MinMaxScaler está dentro del Pipeline.Eso evita que el escalado “vea” información del conjunto de prueba.</p>
 <p>Las variables numéricas se escalan y las categóricas se convierten a variables binarias mediante One-Hot Encoding.</p>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="crear-el-pipeline">
-<h1>5. Crear el Pipeline<a class="headerlink" href="#crear-el-pipeline" title="Link to this heading">#</a></h1>
+<section id="crear-el-pipeline">
+<h2>5. Crear el Pipeline<a class="headerlink" href="#crear-el-pipeline" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pipeline</span>
@@ -619,8 +618,8 @@
 </div>
 </div>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="gridsearchcv">
-<h1>6. GridSearchCV<a class="headerlink" href="#gridsearchcv" title="Link to this heading">#</a></h1>
+<section id="gridsearchcv">
+<h2>6. GridSearchCV<a class="headerlink" href="#gridsearchcv" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">GridSearchCV</span>
@@ -3596,8 +3595,8 @@ function forceTheme(elementId) {
 forceTheme('sk-container-id-1');</script></body></div></div>
 </div>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="evaluacion">
-<h1>7. Evaluación<a class="headerlink" href="#evaluacion" title="Link to this heading">#</a></h1>
+<section id="evaluacion">
+<h2>7. Evaluación<a class="headerlink" href="#evaluacion" title="Link to this heading">#</a></h2>
 <p>Ahora usamos únicamente X_test, que el modelo no utilizó para entrenarse.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3609,8 +3608,8 @@ forceTheme('sk-container-id-1');</script></body></div></div>
 </div>
 </div>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="matriz-de-confusion">
-<h1>8. Matriz de confusión<a class="headerlink" href="#matriz-de-confusion" title="Link to this heading">#</a></h1>
+<section id="matriz-de-confusion">
+<h2>8. Matriz de confusión<a class="headerlink" href="#matriz-de-confusion" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">ConfusionMatrixDisplay</span>
@@ -3636,8 +3635,8 @@ forceTheme('sk-container-id-1');</script></body></div></div>
 </div>
 </div>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="auc">
-<h1>9. AUC<a class="headerlink" href="#auc" title="Link to this heading">#</a></h1>
+<section id="auc">
+<h2>9. AUC<a class="headerlink" href="#auc" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">roc_auc_score</span>
@@ -3655,8 +3654,8 @@ forceTheme('sk-container-id-1');</script></body></div></div>
 </div>
 </div>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="curva-roc">
-<h1>10. Curva ROC<a class="headerlink" href="#curva-roc" title="Link to this heading">#</a></h1>
+<section id="curva-roc">
+<h2>10. Curva ROC<a class="headerlink" href="#curva-roc" title="Link to this heading">#</a></h2>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="n">RocCurveDisplay</span>
@@ -3679,8 +3678,8 @@ forceTheme('sk-container-id-1');</script></body></div></div>
 </div>
 </div>
 </section>
-<section class="tex2jax_ignore mathjax_ignore" id="mejores-parametros">
-<h1>11. Mejores parámetros<a class="headerlink" href="#mejores-parametros" title="Link to this heading">#</a></h1>
+<section id="mejores-parametros">
+<h2>11. Mejores parámetros<a class="headerlink" href="#mejores-parametros" title="Link to this heading">#</a></h2>
 <p>Esto es útil porque utilizaste GridSearchCV:</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
@@ -3702,6 +3701,7 @@ AUC en test: 0.928
 </div>
 </div>
 </div>
+</section>
 </section>
 <section class="tex2jax_ignore mathjax_ignore" id="los-otros-modelos">
 <h1>6. Los otros modelos<a class="headerlink" href="#los-otros-modelos" title="Link to this heading">#</a></h1>
@@ -18227,18 +18227,21 @@ Se dividió el dataset en un conjunto de referencia (entrenamiento) y un conjunt
   </div>
   <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
     <ul class="pst-show_toc_level nav section-nav flex-column">
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Cargar Dataset y EDA</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#separar-x-e-y">1. Separar X e y</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#identificar-variables-numericas-y-categoricas">2. Identificar variables numéricas y categóricas</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#division-antes-del-escalado">3. División ANTES del escalado</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-el-preprocesador-columntransformer">4. Crear el preprocesador (ColumnTransformer)</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-el-pipeline">5. Crear el Pipeline</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearchcv">6. GridSearchCV</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluacion">7. Evaluación</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#matriz-de-confusion">8. Matriz de confusión</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#auc">9. AUC</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#curva-roc">10. Curva ROC</a></li>
-<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#mejores-parametros">11. Mejores parámetros</a></li>
+<li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#">Proyecto Integrador de Aprendizaje Automático: Predicción de Enfermedades Cardíacas</a><ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#cargar-dataset-y-eda">Cargar Dataset y EDA</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#separar-x-e-y">1. Separar X e y</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#identificar-variables-numericas-y-categoricas">2. Identificar variables numéricas y categóricas</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#division-antes-del-escalado">3. División ANTES del escalado</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-el-preprocesador-columntransformer">4. Crear el preprocesador (ColumnTransformer)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#crear-el-pipeline">5. Crear el Pipeline</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#gridsearchcv">6. GridSearchCV</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluacion">7. Evaluación</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#matriz-de-confusion">8. Matriz de confusión</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#auc">9. AUC</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#curva-roc">10. Curva ROC</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#mejores-parametros">11. Mejores parámetros</a></li>
+</ul>
+</li>
 <li class="toc-h1 nav-item toc-entry"><a class="reference internal nav-link" href="#los-otros-modelos">6. Los otros modelos</a><ul class="pst-show_toc_level nav section-nav flex-column">
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#svc">6.1 SVC</a></li>
 <li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#logistic-regression">6.2 Logistic Regression</a></li>
@@ -18267,7 +18270,7 @@ Se dividió el dataset en un conjunto de referencia (entrenamiento) y un conjunt
   <div class="footer-item">
     
 <p class="component-author">
-By Tu Nombre
+By Laura Rivera y Natalý Cárdenas
 </p>
 
   </div>
