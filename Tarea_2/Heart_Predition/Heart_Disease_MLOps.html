@@ -1,0 +1,1498 @@
+
+<!DOCTYPE html>
+
+
+<html lang="en" data-content_root="../../" >
+
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+    <title>Proyecto Integrador: Predicción de Enfermedades Cardíacas (MLOps Local) &#8212; Tareas de Machine Learning</title>
+  
+  
+  
+  <script data-cfasync="false">
+    document.documentElement.dataset.mode = localStorage.getItem("mode") || "";
+    document.documentElement.dataset.theme = localStorage.getItem("theme") || "";
+  </script>
+  <!--
+    this give us a css class that will be invisible only if js is disabled
+  -->
+  <noscript>
+    <style>
+      .pst-js-only { display: none !important; }
+
+    </style>
+  </noscript>
+  
+  <!-- Loaded before other Sphinx assets -->
+  <link href="../../_static/styles/theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+<link href="../../_static/styles/pydata-sphinx-theme.css?digest=55c26ed414f5f8a31ebb" rel="stylesheet" />
+
+    <link rel="stylesheet" type="text/css" href="../../_static/pygments.css?v=03e43079" />
+    <link rel="stylesheet" type="text/css" href="../../_static/styles/sphinx-book-theme.css?v=3c74b3bc" />
+    <link rel="stylesheet" type="text/css" href="../../_static/togglebutton.css?v=9c3e77be" />
+    <link rel="stylesheet" type="text/css" href="../../_static/copybutton.css?v=76b2166b" />
+    <link rel="stylesheet" type="text/css" href="../../_static/mystnb.11b39860a7a0cbfd473a3ad8a317855267ff0bd372690045ca344a6b62be495e.css" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-thebe.css?v=4fa983c6" />
+    <link rel="stylesheet" type="text/css" href="../../_static/sphinx-design.min.css?v=95c83b7e" />
+  
+  <!-- So that users can add custom icons -->
+  <script defer src="../../_static/scripts/fontawesome.js?digest=55c26ed414f5f8a31ebb"></script>
+  <!-- Pre-loaded scripts that we'll load fully later -->
+  <link rel="preload" as="script" href="../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb" />
+<link rel="preload" as="script" href="../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb" />
+
+    <script src="../../_static/documentation_options.js?v=9eb32ce0"></script>
+    <script src="../../_static/doctools.js?v=9a2dae69"></script>
+    <script src="../../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../../_static/clipboard.min.js?v=a7894cd8"></script>
+    <script src="../../_static/copybutton.js?v=f281be69"></script>
+    <script src="../../_static/scripts/sphinx-book-theme.js?v=fab101a9"></script>
+    <script>let toggleHintShow = 'Click to show';</script>
+    <script>let toggleHintHide = 'Click to hide';</script>
+    <script>let toggleOpenOnPrint = 'true';</script>
+    <script src="../../_static/togglebutton.js?v=b8b12719"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script src="../../_static/design-tabs.js?v=f930bc37"></script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script async="async" src="../../_static/sphinx-thebe.js?v=c100c467"></script>
+    <script>var togglebuttonSelector = '.toggle, .admonition.dropdown';</script>
+    <script>const THEBE_JS_URL = "https://unpkg.com/thebe@0.8.2/lib/index.js"; const thebe_selector = ".thebe,.cell"; const thebe_selector_input = "pre"; const thebe_selector_output = ".output, .cell_output"</script>
+    <script>DOCUMENTATION_OPTIONS.pagename = 'Tarea_2/Heart_Predition/Heart_Disease_MLOps';</script>
+    <script>DOCUMENTATION_OPTIONS.search_as_you_type = false;</script>
+    <link rel="index" title="Index" href="../../genindex.html" />
+    <link rel="search" title="Search" href="../../search.html" />
+    <link rel="prev" title="Proyecto Integrador de aprendizaje automático: Clasificación de Riesgo Crediticio con PySpark, scikit-learn y LIME" href="../../Tarea_1/Tarea_1_ML.html" />
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <meta name="docsearch:language" content="en"/>
+  <meta name="docsearch:version" content="" />
+  
+    
+    <script src="../../_static/searchtools.js"></script>
+    <script src="../../_static/language_data.js"></script>
+    <script src="../../searchindex.js"></script>
+  
+  </head>
+  <body data-default-mode="">
+  
+  
+  <div id="pst-skip-link" class="skip-link d-print-none"><a href="#main-content">Skip to main content</a></div>
+
+  
+  <div id="pst-scroll-pixel-helper"></div>
+  
+  <button type="button" class="btn rounded-pill" id="pst-back-to-top">
+    <i class="fa-solid fa-arrow-up"></i>Back to top</button>
+  
+  
+  
+  
+  <dialog id="pst-search-dialog">
+    
+<form class="bd-search d-flex align-items-center"
+      action="../../search.html"
+      method="get">
+  <i class="fa-solid fa-magnifying-glass"></i>
+  <input type="search"
+         class="form-control"
+         name="q"
+         placeholder="Search this book..."
+         aria-label="Search this book..."
+         autocomplete="off"
+         autocorrect="off"
+         autocapitalize="off"
+         spellcheck="false"/>
+  <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd>K</kbd></span>
+</form>
+  </dialog>
+
+  <div class="pst-async-banner-revealer d-none">
+  <aside id="bd-header-version-warning" class="d-none d-print-none" aria-label="Version warning"></aside>
+</div>
+
+  
+    <header id="pst-header" class="bd-header navbar navbar-expand-lg bd-navbar d-print-none">
+<div class="bd-header__inner bd-page-width">
+  <button class="pst-navbar-icon sidebar-toggle primary-toggle" aria-label="Site navigation">
+    <span class="fa-solid fa-bars"></span>
+  </button>
+  
+  
+  <div class="col-lg-9 navbar-header-items">
+    
+    
+    <div class="navbar-header-items__end">
+      
+        <div class="navbar-item navbar-persistent--container">
+          
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+        </div>
+      
+      
+    </div>
+    
+  </div>
+  
+  
+    <div class="navbar-persistent--mobile">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button>
+    </div>
+  
+
+  
+    <button class="pst-navbar-icon sidebar-toggle secondary-toggle" aria-label="On this page">
+      <span class="fa-solid fa-outdent"></span>
+    </button>
+  
+</div>
+
+    </header>
+  
+
+  <div class="bd-container">
+    <div class="bd-container__inner bd-page-width">
+      
+      
+      
+      <dialog id="pst-primary-sidebar-modal"></dialog>
+      <div id="pst-primary-sidebar" class="bd-sidebar-primary bd-sidebar">
+        
+
+  
+  <div class="sidebar-header-items sidebar-primary__section">
+    
+    
+    
+    
+  </div>
+  
+    <div class="sidebar-primary-items__start sidebar-primary__section">
+        <div class="sidebar-primary-item">
+
+  
+    
+  
+
+<a class="navbar-brand logo" href="../../intro.html">
+  
+  
+  
+  
+  
+  
+    <p class="title logo__title">Tareas de Machine Learning</p>
+  
+</a></div>
+        <div class="sidebar-primary-item">
+
+<button class="btn search-button-field search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+ <i class="fa-solid fa-magnifying-glass"></i>
+ <span class="search-button__default-text">Search</span>
+ <span class="search-button__kbd-shortcut"><kbd class="kbd-shortcut__modifier">Ctrl</kbd>+<kbd class="kbd-shortcut__modifier">K</kbd></span>
+</button></div>
+        <div class="sidebar-primary-item"><nav class="bd-links bd-docs-nav" aria-label="Main">
+    <div class="bd-toc-item navbar-nav active">
+        
+        <ul class="nav bd-sidenav bd-sidenav__home-link">
+            <li class="toctree-l1">
+                <a class="reference internal" href="../../intro.html">
+                    Tareas de Machine Learning
+                </a>
+            </li>
+        </ul>
+        <p aria-level="2" class="caption" role="heading"><span class="caption-text">Tareas de Machine Learning</span></p>
+<ul class="current nav bd-sidenav">
+<li class="toctree-l1"><a class="reference internal" href="../../Tarea_1/Tarea_1_ML.html">Tarea 1 - Clasificación de Riesgo Crediticio</a></li>
+<li class="toctree-l1 current active"><a class="current reference internal" href="#">Tarea 2 - Predicción de Enfermedades Cardíacas</a></li>
+</ul>
+
+    </div>
+</nav></div>
+    </div>
+  
+  
+  <div class="sidebar-primary-items__end sidebar-primary__section">
+      <div class="sidebar-primary-item">
+<div id="ethical-ad-placement"
+      class="flat"
+      data-ea-publisher="readthedocs"
+      data-ea-type="readthedocs-sidebar"
+      data-ea-manual="true">
+</div></div>
+  </div>
+
+
+      </div>
+      
+      <main id="main-content" class="bd-main" role="main">
+        
+        
+
+<div class="sbt-scroll-pixel-helper"></div>
+
+          <div class="bd-content">
+            <div class="bd-article-container">
+              
+              <div class="bd-header-article d-print-none">
+<div class="header-article-items header-article__inner">
+  
+    <div class="header-article-items__start">
+      
+        <div class="header-article-item"><button class="sidebar-toggle primary-toggle btn btn-sm" title="Toggle primary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <span class="fa-solid fa-bars"></span>
+</button></div>
+      
+    </div>
+  
+  
+    <div class="header-article-items__end">
+      
+        <div class="header-article-item">
+
+<div class="article-header-buttons">
+
+
+
+
+
+<div class="dropdown dropdown-launch-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Launch interactive content">
+    <i class="fas fa-rocket"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="https://colab.research.google.com/github/lauraformore/Tareas_ML/blob/main/Tarea_2/Heart_Predition/Heart_Disease_MLOps.ipynb" target="_blank"
+   class="btn btn-sm dropdown-item"
+   title="Launch on Colab"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  
+    <img alt="Colab logo" src="../../_static/images/logo_colab.png">
+  </span>
+<span class="btn__text-container">Colab</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="initThebeSBT()"
+  class="btn btn-sm btn-launch-thebe dropdown-item"
+  title="Launch Thebe"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-play"></i>
+  </span>
+<span class="btn__text-container">Live Code</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+
+
+<div class="dropdown dropdown-download-buttons">
+  <button class="btn dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false" aria-label="Download this page">
+    <i class="fas fa-download"></i>
+  </button>
+  <ul class="dropdown-menu">
+      
+      
+      
+      <li><a href="../../_sources/Tarea_2/Heart_Predition/Heart_Disease_MLOps.ipynb" target="_blank"
+   class="btn btn-sm btn-download-source-button dropdown-item"
+   title="Download source file"
+   data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file"></i>
+  </span>
+<span class="btn__text-container">.ipynb</span>
+</a>
+</li>
+      
+      
+      
+      
+      <li>
+<button onclick="window.print()"
+  class="btn btn-sm btn-download-pdf-button dropdown-item"
+  title="Print to PDF"
+  data-bs-placement="left" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-file-pdf"></i>
+  </span>
+<span class="btn__text-container">.pdf</span>
+</button>
+</li>
+      
+  </ul>
+</div>
+
+
+
+
+<button onclick="toggleFullScreen()"
+  class="btn btn-sm btn-fullscreen-button pst-navbar-icon"
+  title="Fullscreen mode"
+  data-bs-placement="bottom" data-bs-toggle="tooltip"
+>
+  
+
+<span class="btn__icon-container">
+  <i class="fas fa-expand"></i>
+  </span>
+
+</button>
+
+
+
+<button class="btn btn-sm nav-link pst-navbar-icon theme-switch-button pst-js-only" aria-label="Color mode" data-bs-title="Color mode"  data-bs-placement="bottom" data-bs-toggle="tooltip">
+  <i class="theme-switch fa-solid fa-sun                fa-lg" data-mode="light" title="Light"></i>
+  <i class="theme-switch fa-solid fa-moon               fa-lg" data-mode="dark"  title="Dark"></i>
+  <i class="theme-switch fa-solid fa-circle-half-stroke fa-lg" data-mode="auto"  title="System Settings"></i>
+</button>
+
+
+<button class="btn btn-sm pst-navbar-icon search-button search-button__button pst-js-only" title="Search" aria-label="Search" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <i class="fa-solid fa-magnifying-glass fa-lg"></i>
+</button>
+<button class="sidebar-toggle secondary-toggle btn btn-sm pst-navbar-icon" title="Toggle secondary sidebar" data-bs-placement="bottom" data-bs-toggle="tooltip">
+    <span class="fa-solid fa-list"></span>
+</button>
+</div></div>
+      
+    </div>
+  
+</div>
+</div>
+              
+              
+
+<div id="jb-print-docs-body" class="onlyprint">
+    <h1>Proyecto Integrador: Predicción de Enfermedades Cardíacas (MLOps Local)</h1>
+    <!-- Table of contents -->
+    <div id="print-main-content">
+        <div id="jb-print-toc">
+            
+            <div>
+                <h2> Contents </h2>
+            </div>
+            <nav aria-label="Page">
+                <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-exploratorio-de-datos-eda-y-preprocesamiento">1. Análisis Exploratorio de Datos (EDA) y Preprocesamiento</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importacion-de-librerias">1.1 Importación de librerías</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#carga-del-dataset">1.2 Carga del dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#informe-visual-automatico-opcional">1.3 Informe visual automático (opcional)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hallazgos-del-eda">1.4 Hallazgos del EDA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deteccion-de-data-leakage">1.5 Detección de Data Leakage</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelado-con-validacion-segura">Modelado con validación segura</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluacion-del-mejor-modelo">2.1 Evaluación del mejor modelo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exportar-el-modelo-ganador">2.2 Exportar el modelo ganador</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#despliegue-local-con-fastapi-docker">Despliegue local con FastAPI + Docker</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#orquestacion-con-kubernetes">Orquestación con Kubernetes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#integracion-continua-con-github-actions">Integración continua con GitHub Actions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#etapa-6-monitoreo-de-deriva-de-datos-data-drift">Etapa 6. Monitoreo de deriva de datos (Data Drift)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusiones-generales">Conclusiones generales</a></li>
+</ul>
+            </nav>
+        </div>
+    </div>
+</div>
+
+              
+                
+<div id="searchbox"></div>
+                <article class="bd-article">
+                  
+  <section class="tex2jax_ignore mathjax_ignore" id="proyecto-integrador-prediccion-de-enfermedades-cardiacas-mlops-local">
+<h1>Proyecto Integrador: Predicción de Enfermedades Cardíacas (MLOps Local)<a class="headerlink" href="#proyecto-integrador-prediccion-de-enfermedades-cardiacas-mlops-local" title="Link to this heading">#</a></h1>
+<p><strong>Autores:</strong> Nátaly Cárdenas y Laura Rivera</p>
+<p><strong>Dataset:</strong> <a class="reference external" href="https://www.kaggle.com/datasets/fedesoriano/heart-failure-prediction">Heart Failure Prediction Dataset</a> (Kaggle). Combina 5 datasets clínicos históricos (Cleveland, Hungría, Suiza, Long Beach VA y Stalog) en 918 registros, con 11 variables predictoras y la variable objetivo <code class="docutils literal notranslate"><span class="pre">HeartDisease</span></code>, usado para predecir el riesgo de enfermedad cardíaca.</p>
+<section id="analisis-exploratorio-de-datos-eda-y-preprocesamiento">
+<h2>1. Análisis Exploratorio de Datos (EDA) y Preprocesamiento<a class="headerlink" href="#analisis-exploratorio-de-datos-eda-y-preprocesamiento" title="Link to this heading">#</a></h2>
+<section id="importacion-de-librerias">
+<h3>1.1 Importación de librerías<a class="headerlink" href="#importacion-de-librerias" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">matplotlib.pyplot</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">plt</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">joblib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">GridSearchCV</span><span class="p">,</span> <span class="n">StratifiedKFold</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pipeline</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.compose</span><span class="w"> </span><span class="kn">import</span> <span class="n">ColumnTransformer</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.preprocessing</span><span class="w"> </span><span class="kn">import</span> <span class="n">MinMaxScaler</span><span class="p">,</span> <span class="n">OneHotEncoder</span>
+
+<span class="c1"># Modelos</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.svm</span><span class="w"> </span><span class="kn">import</span> <span class="n">SVC</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.linear_model</span><span class="w"> </span><span class="kn">import</span> <span class="n">LogisticRegression</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.ensemble</span><span class="w"> </span><span class="kn">import</span> <span class="n">RandomForestClassifier</span><span class="p">,</span> <span class="n">GradientBoostingClassifier</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.neighbors</span><span class="w"> </span><span class="kn">import</span> <span class="n">KNeighborsClassifier</span>
+
+<span class="c1"># Métricas</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.metrics</span><span class="w"> </span><span class="kn">import</span> <span class="p">(</span>
+    <span class="n">accuracy_score</span><span class="p">,</span> <span class="n">roc_auc_score</span><span class="p">,</span> <span class="n">roc_curve</span><span class="p">,</span>
+    <span class="n">confusion_matrix</span><span class="p">,</span> <span class="n">ConfusionMatrixDisplay</span><span class="p">,</span> <span class="n">RocCurveDisplay</span>
+<span class="p">)</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Librerías importadas correctamente&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Librerías importadas correctamente
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="carga-del-dataset">
+<h3>1.2 Carga del dataset<a class="headerlink" href="#carga-del-dataset" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Se prueban varias rutas comunes; ajusta DATA_PATH si tu archivo está en otro lugar</span>
+<span class="n">filename</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;C:\Users\laure\Documents\Proyectos\Heart_Predition\heart.csv&quot;</span>
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+
+<span class="c1"># candidate_paths = [filename, os.path.join(BASE_DIR, &quot;data&quot;, &quot;heart.csv&quot;), os.path.join(BASE_DIR, &quot;heart.csv&quot;)]</span>
+<span class="c1"># DATA_PATH = next((p for p in candidate_paths if os.path.exists(p)), candidate_paths[0])</span>
+
+<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dataset cargado desde: </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Forma del dataset: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Dataset cargado desde: C:\Users\laure\Documents\Proyectos\Heart_Predition\heart.csv
+Forma del dataset: (918, 12)
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Age</th>
+      <th>Sex</th>
+      <th>ChestPainType</th>
+      <th>RestingBP</th>
+      <th>Cholesterol</th>
+      <th>FastingBS</th>
+      <th>RestingECG</th>
+      <th>MaxHR</th>
+      <th>ExerciseAngina</th>
+      <th>Oldpeak</th>
+      <th>ST_Slope</th>
+      <th>HeartDisease</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>40</td>
+      <td>M</td>
+      <td>ATA</td>
+      <td>140</td>
+      <td>289</td>
+      <td>0</td>
+      <td>Normal</td>
+      <td>172</td>
+      <td>N</td>
+      <td>0.0</td>
+      <td>Up</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>49</td>
+      <td>F</td>
+      <td>NAP</td>
+      <td>160</td>
+      <td>180</td>
+      <td>0</td>
+      <td>Normal</td>
+      <td>156</td>
+      <td>N</td>
+      <td>1.0</td>
+      <td>Flat</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>37</td>
+      <td>M</td>
+      <td>ATA</td>
+      <td>130</td>
+      <td>283</td>
+      <td>0</td>
+      <td>ST</td>
+      <td>98</td>
+      <td>N</td>
+      <td>0.0</td>
+      <td>Up</td>
+      <td>0</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>48</td>
+      <td>F</td>
+      <td>ASY</td>
+      <td>138</td>
+      <td>214</td>
+      <td>0</td>
+      <td>Normal</td>
+      <td>108</td>
+      <td>Y</td>
+      <td>1.5</td>
+      <td>Flat</td>
+      <td>1</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>54</td>
+      <td>M</td>
+      <td>NAP</td>
+      <td>150</td>
+      <td>195</td>
+      <td>0</td>
+      <td>Normal</td>
+      <td>122</td>
+      <td>N</td>
+      <td>0.0</td>
+      <td>Up</td>
+      <td>0</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+</section>
+<section id="informe-visual-automatico-opcional">
+<h3>1.3 Informe visual automático (opcional)<a class="headerlink" href="#informe-visual-automatico-opcional" title="Link to this heading">#</a></h3>
+<p>Genera un informe HTML interactivo con estadísticas, correlaciones y valores atípicos. Es pesado de ejecutar; si <code class="docutils literal notranslate"><span class="pre">ydata_profiling</span></code> no está instalado o falla, se omite sin detener el resto del cuaderno.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">ydata_profiling</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProfileReport</span>
+    <span class="n">profile</span> <span class="o">=</span> <span class="n">ProfileReport</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Informe de los datos - Heart Failure&quot;</span><span class="p">,</span> <span class="n">explorative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+    <span class="n">profile</span><span class="o">.</span><span class="n">to_notebook_iframe</span><span class="p">()</span>
+<span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ydata_profiling no está instalado; se omite el informe automático (pip install ydata-profiling).&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>ydata_profiling no está instalado; se omite el informe automático (pip install ydata-profiling).
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+<section id="hallazgos-del-eda">
+<h3>1.4 Hallazgos del EDA<a class="headerlink" href="#hallazgos-del-eda" title="Link to this heading">#</a></h3>
+<ul class="simple">
+<li><p>El dataset contiene <strong>918 observaciones</strong> y <strong>12 variables</strong> (11 predictoras + <code class="docutils literal notranslate"><span class="pre">HeartDisease</span></code>).</p></li>
+<li><p>No se encontraron <strong>valores nulos</strong> ni <strong>filas duplicadas</strong>.</p></li>
+<li><p>Hay <strong>5 variables numéricas</strong> (<code class="docutils literal notranslate"><span class="pre">Age</span></code>, <code class="docutils literal notranslate"><span class="pre">RestingBP</span></code>, <code class="docutils literal notranslate"><span class="pre">Cholesterol</span></code>, <code class="docutils literal notranslate"><span class="pre">MaxHR</span></code>, <code class="docutils literal notranslate"><span class="pre">Oldpeak</span></code>) y <strong>6 categóricas/binarias</strong> (<code class="docutils literal notranslate"><span class="pre">Sex</span></code>, <code class="docutils literal notranslate"><span class="pre">ChestPainType</span></code>, <code class="docutils literal notranslate"><span class="pre">RestingECG</span></code>, <code class="docutils literal notranslate"><span class="pre">ExerciseAngina</span></code>, <code class="docutils literal notranslate"><span class="pre">ST_Slope</span></code>, <code class="docutils literal notranslate"><span class="pre">FastingBS</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">ChestPainType</span></code> y <code class="docutils literal notranslate"><span class="pre">ST_Slope</span></code> muestran <strong>correlación alta</strong> con la variable objetivo <code class="docutils literal notranslate"><span class="pre">HeartDisease</span></code>.</p></li>
+<li><p>Se detectaron valores <code class="docutils literal notranslate"><span class="pre">0</span></code> sospechosos: <strong>172 en <code class="docutils literal notranslate"><span class="pre">Cholesterol</span></code></strong> (18.7%) y <strong>368 en <code class="docutils literal notranslate"><span class="pre">Oldpeak</span></code></strong> (40.1%), probablemente representando datos faltantes codificados como cero. Se documentan aquí; no se imputan en este cuaderno porque los modelos usados toleran esas distribuciones y el objetivo del proyecto es MLOps, no maximizar el desempeño clínico del modelo.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;HeartDisease&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Balance de clases (HeartDisease)&quot;</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">],</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
+<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Distribución de la edad&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/8284638cc343932eb528aa7ab954e887098311a7e920de6a0bc1553afb59001e.png" src="../../_images/8284638cc343932eb528aa7ab954e887098311a7e920de6a0bc1553afb59001e.png" />
+</div>
+</div>
+</section>
+<section id="deteccion-de-data-leakage">
+<h3>1.5 Detección de Data Leakage<a class="headerlink" href="#deteccion-de-data-leakage" title="Link to this heading">#</a></h3>
+<p><strong>Data leakage</strong> ocurre cuando información del conjunto de prueba “se filtra” al entrenamiento, por ejemplo al escalar los datos <strong>antes</strong> de dividir en train/test. Esto produce métricas de validación infladas y poco confiables.</p>
+<p>A continuación se comparan dos flujos sobre el mismo dataset y modelo (SVC):</p>
+<ul class="simple">
+<li><p><strong>Con fuga:</strong> se escala <code class="docutils literal notranslate"><span class="pre">X</span></code> completo y luego se divide en train/test.</p></li>
+<li><p><strong>Sin fuga:</strong> se divide primero, y el escalado ocurre dentro de un <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code>, ajustado solo con <code class="docutils literal notranslate"><span class="pre">X_train</span></code>.</p></li>
+</ul>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">numeric_features</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="s2">&quot;RestingBP&quot;</span><span class="p">,</span> <span class="s2">&quot;Cholesterol&quot;</span><span class="p">,</span> <span class="s2">&quot;FastingBS&quot;</span><span class="p">,</span> <span class="s2">&quot;MaxHR&quot;</span><span class="p">,</span> <span class="s2">&quot;Oldpeak&quot;</span><span class="p">]</span>
+<span class="n">categorical_features</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;Sex&quot;</span><span class="p">,</span> <span class="s2">&quot;ChestPainType&quot;</span><span class="p">,</span> <span class="s2">&quot;RestingECG&quot;</span><span class="p">,</span> <span class="s2">&quot;ExerciseAngina&quot;</span><span class="p">,</span> <span class="s2">&quot;ST_Slope&quot;</span><span class="p">]</span>
+
+<span class="n">X</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">drop</span><span class="p">(</span><span class="s2">&quot;HeartDisease&quot;</span><span class="p">,</span> <span class="n">axis</span><span class="o">=</span><span class="mi">1</span><span class="p">)</span>
+<span class="n">y</span> <span class="o">=</span> <span class="n">df</span><span class="p">[</span><span class="s2">&quot;HeartDisease&quot;</span><span class="p">]</span>
+
+<span class="n">preprocessor</span> <span class="o">=</span> <span class="n">ColumnTransformer</span><span class="p">([</span>
+    <span class="p">(</span><span class="s2">&quot;numeric&quot;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">(),</span> <span class="n">numeric_features</span><span class="p">),</span>
+    <span class="p">(</span><span class="s2">&quot;categorical&quot;</span><span class="p">,</span> <span class="n">OneHotEncoder</span><span class="p">(</span><span class="n">handle_unknown</span><span class="o">=</span><span class="s2">&quot;ignore&quot;</span><span class="p">),</span> <span class="n">categorical_features</span><span class="p">),</span>
+<span class="p">])</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># --- Flujo CON fuga de datos ---</span>
+<span class="c1"># (solo para fines demostrativos: nunca hacer esto en un proyecto real)</span>
+<span class="n">X_scaled_leak</span> <span class="o">=</span> <span class="n">preprocessor</span><span class="o">.</span><span class="n">fit_transform</span><span class="p">(</span><span class="n">X</span><span class="p">)</span>  <span class="c1"># se ajusta con TODO el dataset</span>
+<span class="n">X_train_l</span><span class="p">,</span> <span class="n">X_test_l</span><span class="p">,</span> <span class="n">y_train_l</span><span class="p">,</span> <span class="n">y_test_l</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X_scaled_leak</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span>
+<span class="p">)</span>
+
+<span class="n">grid_leak</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span>
+    <span class="n">SVC</span><span class="p">(</span><span class="n">probability</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+    <span class="p">{</span><span class="s2">&quot;C&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="s2">&quot;gamma&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]},</span>
+    <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s2">&quot;roc_auc&quot;</span>
+<span class="p">)</span>
+<span class="n">grid_leak</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train_l</span><span class="p">,</span> <span class="n">y_train_l</span><span class="p">)</span>
+<span class="n">auc_leak</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test_l</span><span class="p">,</span> <span class="n">grid_leak</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test_l</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="c1"># --- Flujo SIN fuga de datos (correcto) ---</span>
+<span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">y_test</span> <span class="o">=</span> <span class="n">train_test_split</span><span class="p">(</span>
+    <span class="n">X</span><span class="p">,</span> <span class="n">y</span><span class="p">,</span> <span class="n">test_size</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">,</span> <span class="n">stratify</span><span class="o">=</span><span class="n">y</span>
+<span class="p">)</span>
+
+<span class="n">pipe_demo</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s2">&quot;preprocessor&quot;</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">),</span> <span class="p">(</span><span class="s2">&quot;svc&quot;</span><span class="p">,</span> <span class="n">SVC</span><span class="p">(</span><span class="n">probability</span><span class="o">=</span><span class="kc">True</span><span class="p">))])</span>
+<span class="n">grid_ok</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span>
+    <span class="n">pipe_demo</span><span class="p">,</span>
+    <span class="p">{</span><span class="s2">&quot;svc__C&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="s2">&quot;svc__gamma&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]},</span>
+    <span class="n">cv</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s2">&quot;roc_auc&quot;</span>
+<span class="p">)</span>
+<span class="n">grid_ok</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+<span class="n">auc_ok</span> <span class="o">=</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">grid_ok</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">])</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;AUC con fuga de datos : </span><span class="si">{</span><span class="n">auc_leak</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;AUC sin fuga de datos : </span><span class="si">{</span><span class="n">auc_ok</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AUC con fuga de datos : 0.9275
+AUC sin fuga de datos : 0.9275
+</pre></div>
+</div>
+</div>
+</div>
+<p><strong>Conclusión de la demostración:</strong> el flujo con fuga tiende a mostrar un AUC igual o mayor porque el escalador “vio” datos de test durante el ajuste. En el resto del cuaderno se usa siempre el flujo correcto: <code class="docutils literal notranslate"><span class="pre">train_test_split</span></code> primero, y todo el preprocesamiento dentro del <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code>.</p>
+<p><code class="docutils literal notranslate"><span class="pre">X_train</span></code>, <code class="docutils literal notranslate"><span class="pre">X_test</span></code>, <code class="docutils literal notranslate"><span class="pre">y_train</span></code>, <code class="docutils literal notranslate"><span class="pre">y_test</span></code> y <code class="docutils literal notranslate"><span class="pre">preprocessor</span></code> (sin ajustar) ya quedaron definidos arriba y se reutilizan en la Etapa 2.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Entrenamiento: </span><span class="si">{</span><span class="n">X_train</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> muestras&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Prueba: </span><span class="si">{</span><span class="n">X_test</span><span class="o">.</span><span class="n">shape</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="si">}</span><span class="s2"> muestras&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Entrenamiento: 734 muestras
+Prueba: 184 muestras
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="modelado-con-validacion-segura">
+<h2>Modelado con validación segura<a class="headerlink" href="#modelado-con-validacion-segura" title="Link to this heading">#</a></h2>
+<p>Se implementa cada modelo dentro de un <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code> con el <code class="docutils literal notranslate"><span class="pre">preprocessor</span></code> de la Etapa 1, optimizado con <code class="docutils literal notranslate"><span class="pre">GridSearchCV</span></code>. Para evitar repetir el mismo código 5 veces (como en la versión anterior del cuaderno), se encapsula la lógica en dos funciones reutilizables.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">cv</span> <span class="o">=</span> <span class="n">StratifiedKFold</span><span class="p">(</span><span class="n">n_splits</span><span class="o">=</span><span class="mi">5</span><span class="p">,</span> <span class="n">shuffle</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">train_pipeline</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s2">&quot;roc_auc&quot;</span><span class="p">):</span>
+    <span class="c1"># \&quot;\&quot;\&quot;Construye un Pipeline (preprocessor + modelo) y lo optimiza con GridSearchCV.\&quot;\&quot;\&quot;</span>
+    <span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
+        <span class="p">(</span><span class="s2">&quot;preprocessor&quot;</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">),</span>
+        <span class="p">(</span><span class="s2">&quot;classifier&quot;</span><span class="p">,</span> <span class="n">model</span><span class="p">),</span>
+    <span class="p">])</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">GridSearchCV</span><span class="p">(</span><span class="n">pipe</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="n">scoring</span><span class="p">,</span> <span class="n">n_jobs</span><span class="o">=-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">grid</span><span class="o">.</span><span class="n">fit</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="k">return</span> <span class="n">grid</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">evaluate_pipeline</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
+    <span class="c1"># \&quot;\&quot;\&quot;Evalúa un GridSearchCV ya entrenado y devuelve un diccionario con sus métricas.\&quot;\&quot;\&quot;</span>
+    <span class="n">y_pred</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
+    <span class="n">y_prob</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">{</span>
+        <span class="s2">&quot;Model&quot;</span><span class="p">:</span> <span class="n">name</span><span class="p">,</span>
+        <span class="s2">&quot;AUC&quot;</span><span class="p">:</span> <span class="n">roc_auc_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_prob</span><span class="p">),</span>
+        <span class="s2">&quot;Accuracy&quot;</span><span class="p">:</span> <span class="n">accuracy_score</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">y_pred</span><span class="p">),</span>
+        <span class="s2">&quot;Best params&quot;</span><span class="p">:</span> <span class="n">grid</span><span class="o">.</span><span class="n">best_params_</span><span class="p">,</span>
+        <span class="s2">&quot;y_pred&quot;</span><span class="p">:</span> <span class="n">y_pred</span><span class="p">,</span>
+        <span class="s2">&quot;y_prob&quot;</span><span class="p">:</span> <span class="n">y_prob</span><span class="p">,</span>
+    <span class="p">}</span>
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Modelo base visto en la sección del curso (SVC) + los modelos recomendados</span>
+<span class="n">model_configs</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;SVC&quot;</span><span class="p">:</span> <span class="p">(</span>
+        <span class="n">SVC</span><span class="p">(</span><span class="n">probability</span><span class="o">=</span><span class="kc">True</span><span class="p">),</span>
+        <span class="p">{</span><span class="s2">&quot;classifier__C&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">],</span> <span class="s2">&quot;classifier__gamma&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">]},</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;LogisticRegression&quot;</span><span class="p">:</span> <span class="p">(</span>
+        <span class="n">LogisticRegression</span><span class="p">(</span><span class="n">max_iter</span><span class="o">=</span><span class="mi">1000</span><span class="p">,</span> <span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+        <span class="p">{</span><span class="s2">&quot;classifier__C&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.01</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">10</span><span class="p">]},</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;RandomForest&quot;</span><span class="p">:</span> <span class="p">(</span>
+        <span class="n">RandomForestClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+        <span class="p">{</span><span class="s2">&quot;classifier__n_estimators&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="s2">&quot;classifier__max_depth&quot;</span><span class="p">:</span> <span class="p">[</span><span class="kc">None</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">10</span><span class="p">]},</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;KNN&quot;</span><span class="p">:</span> <span class="p">(</span>
+        <span class="n">KNeighborsClassifier</span><span class="p">(),</span>
+        <span class="p">{</span><span class="s2">&quot;classifier__n_neighbors&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">3</span><span class="p">,</span> <span class="mi">5</span><span class="p">,</span> <span class="mi">7</span><span class="p">,</span> <span class="mi">11</span><span class="p">]},</span>
+    <span class="p">),</span>
+    <span class="s2">&quot;GradientBoosting&quot;</span><span class="p">:</span> <span class="p">(</span>
+        <span class="n">GradientBoostingClassifier</span><span class="p">(</span><span class="n">random_state</span><span class="o">=</span><span class="mi">42</span><span class="p">),</span>
+        <span class="p">{</span><span class="s2">&quot;classifier__n_estimators&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">100</span><span class="p">,</span> <span class="mi">200</span><span class="p">],</span> <span class="s2">&quot;classifier__learning_rate&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mf">0.05</span><span class="p">,</span> <span class="mf">0.1</span><span class="p">],</span> <span class="s2">&quot;classifier__max_depth&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">2</span><span class="p">,</span> <span class="mi">3</span><span class="p">]},</span>
+    <span class="p">),</span>
+<span class="p">}</span>
+
+<span class="n">fitted_grids</span> <span class="o">=</span> <span class="p">{}</span>
+<span class="n">results</span> <span class="o">=</span> <span class="p">[]</span>
+
+<span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">)</span> <span class="ow">in</span> <span class="n">model_configs</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Entrenando </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">...&quot;</span><span class="p">)</span>
+    <span class="n">grid</span> <span class="o">=</span> <span class="n">train_pipeline</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">)</span>
+    <span class="n">fitted_grids</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">grid</span>
+    <span class="n">metrics</span> <span class="o">=</span> <span class="n">evaluate_pipeline</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">)</span>
+    <span class="n">results</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="n">metrics</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;  AUC (test): </span><span class="si">{</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;AUC&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2"> | Accuracy: </span><span class="si">{</span><span class="n">metrics</span><span class="p">[</span><span class="s1">&#39;Accuracy&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Entrenando SVC...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  AUC (test): 0.9279 | Accuracy: 0.8913
+Entrenando LogisticRegression...
+  AUC (test): 0.9293 | Accuracy: 0.8859
+Entrenando RandomForest...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  AUC (test): 0.9358 | Accuracy: 0.8967
+Entrenando KNN...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  AUC (test): 0.9296 | Accuracy: 0.8696
+Entrenando GradientBoosting...
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  AUC (test): 0.9308 | Accuracy: 0.9076
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">results_df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">results</span><span class="p">)[[</span><span class="s2">&quot;Model&quot;</span><span class="p">,</span> <span class="s2">&quot;AUC&quot;</span><span class="p">,</span> <span class="s2">&quot;Accuracy&quot;</span><span class="p">,</span> <span class="s2">&quot;Best params&quot;</span><span class="p">]]</span>
+<span class="n">results_df</span> <span class="o">=</span> <span class="n">results_df</span><span class="o">.</span><span class="n">sort_values</span><span class="p">(</span><span class="s2">&quot;AUC&quot;</span><span class="p">,</span> <span class="n">ascending</span><span class="o">=</span><span class="kc">False</span><span class="p">)</span><span class="o">.</span><span class="n">reset_index</span><span class="p">(</span><span class="n">drop</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
+<span class="n">results_df</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>Model</th>
+      <th>AUC</th>
+      <th>Accuracy</th>
+      <th>Best params</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>RandomForest</td>
+      <td>0.935796</td>
+      <td>0.896739</td>
+      <td>{'classifier__max_depth': 5, 'classifier__n_es...</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>GradientBoosting</td>
+      <td>0.930775</td>
+      <td>0.907609</td>
+      <td>{'classifier__learning_rate': 0.1, 'classifier...</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>KNN</td>
+      <td>0.929579</td>
+      <td>0.869565</td>
+      <td>{'classifier__n_neighbors': 11}</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>LogisticRegression</td>
+      <td>0.929340</td>
+      <td>0.885870</td>
+      <td>{'classifier__C': 1}</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>SVC</td>
+      <td>0.927905</td>
+      <td>0.891304</td>
+      <td>{'classifier__C': 1, 'classifier__gamma': 0.1}</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<section id="evaluacion-del-mejor-modelo">
+<h3>2.1 Evaluación del mejor modelo<a class="headerlink" href="#evaluacion-del-mejor-modelo" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">best_name</span> <span class="o">=</span> <span class="n">results_df</span><span class="o">.</span><span class="n">iloc</span><span class="p">[</span><span class="mi">0</span><span class="p">][</span><span class="s2">&quot;Model&quot;</span><span class="p">]</span>
+<span class="n">best_grid</span> <span class="o">=</span> <span class="n">fitted_grids</span><span class="p">[</span><span class="n">best_name</span><span class="p">]</span>
+<span class="n">best_metrics</span> <span class="o">=</span> <span class="nb">next</span><span class="p">(</span><span class="n">r</span> <span class="k">for</span> <span class="n">r</span> <span class="ow">in</span> <span class="n">results</span> <span class="k">if</span> <span class="n">r</span><span class="p">[</span><span class="s2">&quot;Model&quot;</span><span class="p">]</span> <span class="o">==</span> <span class="n">best_name</span><span class="p">)</span>
+<span class="n">best_pipeline</span> <span class="o">=</span> <span class="n">best_grid</span><span class="o">.</span><span class="n">best_estimator_</span>
+
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mejor modelo: </span><span class="si">{</span><span class="n">best_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;AUC (test): </span><span class="si">{</span><span class="n">best_metrics</span><span class="p">[</span><span class="s1">&#39;AUC&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Accuracy (test): </span><span class="si">{</span><span class="n">best_metrics</span><span class="p">[</span><span class="s1">&#39;Accuracy&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.4f</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mejores parámetros: </span><span class="si">{</span><span class="n">best_metrics</span><span class="p">[</span><span class="s1">&#39;Best params&#39;</span><span class="p">]</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Mejor modelo: RandomForest
+AUC (test): 0.9358
+Accuracy (test): 0.8967
+Mejores parámetros: {&#39;classifier__max_depth&#39;: 5, &#39;classifier__n_estimators&#39;: 100}
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Matriz de confusión</span>
+<span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">best_metrics</span><span class="p">[</span><span class="s2">&quot;y_pred&quot;</span><span class="p">])</span>
+<span class="n">ConfusionMatrixDisplay</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="o">=</span><span class="n">cm</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Matriz de confusión - </span><span class="si">{</span><span class="n">best_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Curva ROC</span>
+<span class="n">RocCurveDisplay</span><span class="o">.</span><span class="n">from_predictions</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">best_metrics</span><span class="p">[</span><span class="s2">&quot;y_prob&quot;</span><span class="p">])</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Curva ROC - </span><span class="si">{</span><span class="n">best_name</span><span class="si">}</span><span class="s2"> (AUC = </span><span class="si">{</span><span class="n">best_metrics</span><span class="p">[</span><span class="s1">&#39;AUC&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/2b2ad8581aef4f52acfd29d73ec37860ef4ccc4f4b3186f47bd96976048a7dff.png" src="../../_images/2b2ad8581aef4f52acfd29d73ec37860ef4ccc4f4b3186f47bd96976048a7dff.png" />
+<img alt="../../_images/fd6baf459af814f312849b1388c9147b509eed04eabfdec33b6362dde04ac58e.png" src="../../_images/fd6baf459af814f312849b1388c9147b509eed04eabfdec33b6362dde04ac58e.png" />
+</div>
+</div>
+</section>
+<section id="exportar-el-modelo-ganador">
+<h3>2.2 Exportar el modelo ganador<a class="headerlink" href="#exportar-el-modelo-ganador" title="Link to this heading">#</a></h3>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">model_path</span> <span class="o">=</span> <span class="s2">&quot;app/model.joblib&quot;</span>
+<span class="n">joblib</span><span class="o">.</span><span class="n">dump</span><span class="p">(</span><span class="n">best_pipeline</span><span class="p">,</span> <span class="n">model_path</span><span class="p">)</span>
+<span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Modelo exportado en: </span><span class="si">{</span><span class="n">model_path</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Modelo exportado en: app/model.joblib
+</pre></div>
+</div>
+</div>
+</div>
+</section>
+</section>
+<section id="despliegue-local-con-fastapi-docker">
+<h2>Despliegue local con FastAPI + Docker<a class="headerlink" href="#despliegue-local-con-fastapi-docker" title="Link to this heading">#</a></h2>
+<p>Se sirve el modelo mediante una API REST y se contenedoriza con Docker. Las siguientes celdas usan <code class="docutils literal notranslate"><span class="pre">%%writefile</span></code> para generar los archivos reales del proyecto (no son solo texto: al ejecutarlas, quedan escritos en disco en <code class="docutils literal notranslate"><span class="pre">app/</span></code> y <code class="docutils literal notranslate"><span class="pre">docker/</span></code>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%writefile</span> app/api.py
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">joblib</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+
+<span class="n">model</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;app/model.joblib&quot;</span><span class="p">)</span>
+<span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
+
+
+<span class="k">class</span><span class="w"> </span><span class="nc">Input</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
+    <span class="n">features</span><span class="p">:</span> <span class="nb">list</span>
+
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/health&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">health</span><span class="p">():</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ok&quot;</span><span class="p">}</span>
+
+
+<span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/predict&quot;</span><span class="p">)</span>
+<span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Input</span><span class="p">):</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">features</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">proba</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
+    <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;heart_disease_probability&quot;</span><span class="p">:</span> <span class="n">proba</span><span class="p">,</span> <span class="s2">&quot;prediction&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">proba</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)}</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Overwriting app/api.py
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%writefile</span> docker/requirements.txt
+<span class="n">fastapi</span>
+<span class="n">uvicorn</span>
+<span class="n">scikit</span><span class="o">-</span><span class="n">learn</span>
+<span class="n">joblib</span>
+<span class="n">pydantic</span>
+<span class="n">numpy</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Overwriting docker/requirements.txt
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%writefile</span> docker/Dockerfile
+<span class="n">FROM</span> <span class="n">python</span><span class="p">:</span><span class="mf">3.10</span><span class="o">-</span><span class="n">slim</span>
+<span class="n">WORKDIR</span> <span class="o">/</span><span class="n">app</span>
+<span class="n">COPY</span> <span class="n">docker</span><span class="o">/</span><span class="n">requirements</span><span class="o">.</span><span class="n">txt</span> <span class="o">.</span>
+<span class="n">RUN</span> <span class="n">pip</span> <span class="n">install</span> <span class="o">--</span><span class="n">no</span><span class="o">-</span><span class="n">cache</span><span class="o">-</span><span class="nb">dir</span> <span class="o">-</span><span class="n">r</span> <span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+<span class="n">COPY</span> <span class="n">app</span><span class="o">/</span> <span class="o">./</span><span class="n">app</span><span class="o">/</span>
+<span class="n">CMD</span> <span class="p">[</span><span class="s2">&quot;uvicorn&quot;</span><span class="p">,</span> <span class="s2">&quot;app.api:app&quot;</span><span class="p">,</span> <span class="s2">&quot;--host&quot;</span><span class="p">,</span> <span class="s2">&quot;0.0.0.0&quot;</span><span class="p">,</span> <span class="s2">&quot;--port&quot;</span><span class="p">,</span> <span class="s2">&quot;8000&quot;</span><span class="p">]</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Overwriting docker/Dockerfile
+</pre></div>
+</div>
+</div>
+</div>
+<p>Comandos para construir y ejecutar el contenedor localmente (se corren en una terminal, no en el notebook):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>heart-disease-mlops<span class="w"> </span>-f<span class="w"> </span>docker/Dockerfile<span class="w"> </span>.
+docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span>heart-disease-mlops
+</pre></div>
+</div>
+</section>
+<section id="orquestacion-con-kubernetes">
+<h2>Orquestación con Kubernetes<a class="headerlink" href="#orquestacion-con-kubernetes" title="Link to this heading">#</a></h2>
+<p>Manifiestos para desplegar el modelo localmente (por ejemplo con Minikube).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%writefile</span> k8s/deployment.yaml
+<span class="n">apiVersion</span><span class="p">:</span> <span class="n">apps</span><span class="o">/</span><span class="n">v1</span>
+<span class="n">kind</span><span class="p">:</span> <span class="n">Deployment</span>
+<span class="n">metadata</span><span class="p">:</span>
+  <span class="n">name</span><span class="p">:</span> <span class="n">heart</span><span class="o">-</span><span class="n">model</span>
+<span class="n">spec</span><span class="p">:</span>
+  <span class="n">replicas</span><span class="p">:</span> <span class="mi">2</span>
+  <span class="n">selector</span><span class="p">:</span>
+    <span class="n">matchLabels</span><span class="p">:</span>
+      <span class="n">app</span><span class="p">:</span> <span class="n">heart</span><span class="o">-</span><span class="n">model</span>
+  <span class="n">template</span><span class="p">:</span>
+    <span class="n">metadata</span><span class="p">:</span>
+      <span class="n">labels</span><span class="p">:</span>
+        <span class="n">app</span><span class="p">:</span> <span class="n">heart</span><span class="o">-</span><span class="n">model</span>
+    <span class="n">spec</span><span class="p">:</span>
+      <span class="n">containers</span><span class="p">:</span>
+        <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">heart</span><span class="o">-</span><span class="n">model</span>
+          <span class="n">image</span><span class="p">:</span> <span class="n">heart</span><span class="o">-</span><span class="n">disease</span><span class="o">-</span><span class="n">mlops</span><span class="p">:</span><span class="n">latest</span>
+          <span class="n">ports</span><span class="p">:</span>
+            <span class="o">-</span> <span class="n">containerPort</span><span class="p">:</span> <span class="mi">8000</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Overwriting k8s/deployment.yaml
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%writefile</span> k8s/service.yaml
+<span class="n">apiVersion</span><span class="p">:</span> <span class="n">v1</span>
+<span class="n">kind</span><span class="p">:</span> <span class="n">Service</span>
+<span class="n">metadata</span><span class="p">:</span>
+  <span class="n">name</span><span class="p">:</span> <span class="n">heart</span><span class="o">-</span><span class="n">service</span>
+<span class="n">spec</span><span class="p">:</span>
+  <span class="n">selector</span><span class="p">:</span>
+    <span class="n">app</span><span class="p">:</span> <span class="n">heart</span><span class="o">-</span><span class="n">model</span>
+  <span class="n">ports</span><span class="p">:</span>
+    <span class="o">-</span> <span class="n">protocol</span><span class="p">:</span> <span class="n">TCP</span>
+      <span class="n">port</span><span class="p">:</span> <span class="mi">80</span>
+      <span class="n">targetPort</span><span class="p">:</span> <span class="mi">8000</span>
+  <span class="nb">type</span><span class="p">:</span> <span class="n">LoadBalancer</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Overwriting k8s/service.yaml
+</pre></div>
+</div>
+</div>
+</div>
+<p>Comandos para desplegar (en terminal):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>k8s/deployment.yaml
+kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> </span>k8s/service.yaml
+kubectl<span class="w"> </span>get<span class="w"> </span>svc
+</pre></div>
+</div>
+</section>
+<section id="integracion-continua-con-github-actions">
+<h2>Integración continua con GitHub Actions<a class="headerlink" href="#integracion-continua-con-github-actions" title="Link to this heading">#</a></h2>
+<p>En cada <code class="docutils literal notranslate"><span class="pre">push</span></code> se instalan las dependencias, se revisa el estilo del código (<code class="docutils literal notranslate"><span class="pre">flake8</span></code>) y se corren las pruebas automáticas (<code class="docutils literal notranslate"><span class="pre">pytest</span></code>).</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%writefile</span> tests/test_api.py
+<span class="kn">from</span><span class="w"> </span><span class="nn">fastapi.testclient</span><span class="w"> </span><span class="kn">import</span> <span class="n">TestClient</span>
+<span class="kn">from</span><span class="w"> </span><span class="nn">app.api</span><span class="w"> </span><span class="kn">import</span> <span class="n">app</span>
+
+<span class="n">client</span> <span class="o">=</span> <span class="n">TestClient</span><span class="p">(</span><span class="n">app</span><span class="p">)</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_health</span><span class="p">():</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/health&quot;</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span>
+    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span> <span class="o">==</span> <span class="p">{</span><span class="s2">&quot;status&quot;</span><span class="p">:</span> <span class="s2">&quot;ok&quot;</span><span class="p">}</span>
+
+
+<span class="k">def</span><span class="w"> </span><span class="nf">test_predict_returns_prediction_field</span><span class="p">():</span>
+    <span class="n">sample</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">54</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">246</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]}</span>
+    <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/predict&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">sample</span><span class="p">)</span>
+    <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span>
+    <span class="n">body</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
+    <span class="k">assert</span> <span class="s2">&quot;prediction&quot;</span> <span class="ow">in</span> <span class="n">body</span>
+    <span class="k">assert</span> <span class="s2">&quot;heart_disease_probability&quot;</span> <span class="ow">in</span> <span class="n">body</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Overwriting tests/test_api.py
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%writefile</span> .github/workflows/ci.yml
+<span class="n">name</span><span class="p">:</span> <span class="n">CI</span>
+
+<span class="n">on</span><span class="p">:</span> <span class="p">[</span><span class="n">push</span><span class="p">,</span> <span class="n">pull_request</span><span class="p">]</span>
+
+<span class="n">jobs</span><span class="p">:</span>
+  <span class="n">build</span><span class="p">:</span>
+    <span class="n">runs</span><span class="o">-</span><span class="n">on</span><span class="p">:</span> <span class="n">ubuntu</span><span class="o">-</span><span class="n">latest</span>
+    <span class="n">steps</span><span class="p">:</span>
+      <span class="o">-</span> <span class="n">uses</span><span class="p">:</span> <span class="n">actions</span><span class="o">/</span><span class="n">checkout</span><span class="nd">@v3</span>
+
+      <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Set</span> <span class="n">up</span> <span class="n">Python</span>
+        <span class="n">uses</span><span class="p">:</span> <span class="n">actions</span><span class="o">/</span><span class="n">setup</span><span class="o">-</span><span class="n">python</span><span class="nd">@v4</span>
+        <span class="k">with</span><span class="p">:</span>
+          <span class="n">python</span><span class="o">-</span><span class="n">version</span><span class="p">:</span> <span class="s2">&quot;3.10&quot;</span>
+
+      <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Install</span> <span class="n">dependencies</span>
+        <span class="n">run</span><span class="p">:</span> <span class="o">|</span>
+          <span class="n">pip</span> <span class="n">install</span> <span class="o">-</span><span class="n">r</span> <span class="n">docker</span><span class="o">/</span><span class="n">requirements</span><span class="o">.</span><span class="n">txt</span>
+          <span class="n">pip</span> <span class="n">install</span> <span class="n">flake8</span> <span class="n">pytest</span> <span class="n">httpx</span>
+
+      <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Lint</span> <span class="k">with</span> <span class="n">flake8</span>
+        <span class="n">run</span><span class="p">:</span> <span class="n">flake8</span> <span class="n">app</span> <span class="o">--</span><span class="nb">max</span><span class="o">-</span><span class="n">line</span><span class="o">-</span><span class="n">length</span><span class="o">=</span><span class="mi">120</span>
+
+      <span class="o">-</span> <span class="n">name</span><span class="p">:</span> <span class="n">Run</span> <span class="n">tests</span>
+        <span class="n">run</span><span class="p">:</span> <span class="n">pytest</span> <span class="n">tests</span><span class="o">/</span> <span class="o">-</span><span class="n">v</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Overwriting .github/workflows/ci.yml
+</pre></div>
+</div>
+</div>
+</div>
+<blockquote>
+<div><p>Nota: <code class="docutils literal notranslate"><span class="pre">tests/test_api.py</span></code> requiere que <code class="docutils literal notranslate"><span class="pre">app/model.joblib</span></code> exista antes de correr las pruebas (se genera en la Etapa 2). Ajusta el vector de <code class="docutils literal notranslate"><span class="pre">features</span></code> de la prueba al orden real de columnas de tu <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
+</div></blockquote>
+</section>
+<section id="etapa-6-monitoreo-de-deriva-de-datos-data-drift">
+<h2>Etapa 6. Monitoreo de deriva de datos (Data Drift)<a class="headerlink" href="#etapa-6-monitoreo-de-deriva-de-datos-data-drift" title="Link to this heading">#</a></h2>
+<p>Se compara la distribución de <code class="docutils literal notranslate"><span class="pre">X_train</span></code> (referencia) contra <code class="docutils literal notranslate"><span class="pre">X_test</span></code> (datos “actuales”) para detectar deriva. Se usa <code class="docutils literal notranslate"><span class="pre">Evidently</span></code>; si la versión instalada es incompatible con tu entorno (error frecuente con NumPy 2.0), la celda cae automáticamente en un análisis de respaldo con prueba de Kolmogorov–Smirnov, que mide lo mismo de forma manual.</p>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">manual_drift_report</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">numeric_features</span><span class="p">):</span>
+<span class="w">    </span><span class="sd">&quot;&quot;&quot;Compara distribuciones numéricas de train vs test con la prueba KS.&quot;&quot;&quot;</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">scipy.stats</span><span class="w"> </span><span class="kn">import</span> <span class="n">ks_2samp</span>
+
+    <span class="n">rows</span> <span class="o">=</span> <span class="p">[]</span>
+    <span class="k">for</span> <span class="n">col</span> <span class="ow">in</span> <span class="n">numeric_features</span><span class="p">:</span>
+        <span class="n">stat</span><span class="p">,</span> <span class="n">p_value</span> <span class="o">=</span> <span class="n">ks_2samp</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="n">col</span><span class="p">],</span> <span class="n">X_test</span><span class="p">[</span><span class="n">col</span><span class="p">])</span>
+        <span class="n">rows</span><span class="o">.</span><span class="n">append</span><span class="p">({</span><span class="s2">&quot;feature&quot;</span><span class="p">:</span> <span class="n">col</span><span class="p">,</span> <span class="s2">&quot;ks_statistic&quot;</span><span class="p">:</span> <span class="n">stat</span><span class="p">,</span> <span class="s2">&quot;p_value&quot;</span><span class="p">:</span> <span class="n">p_value</span><span class="p">,</span> <span class="s2">&quot;drift_detected&quot;</span><span class="p">:</span> <span class="n">p_value</span> <span class="o">&lt;</span> <span class="mf">0.05</span><span class="p">})</span>
+    <span class="k">return</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">(</span><span class="n">rows</span><span class="p">)</span>
+
+
+<span class="n">drift_df</span> <span class="o">=</span> <span class="kc">None</span>
+<span class="n">report_obj</span> <span class="o">=</span> <span class="kc">None</span>
+
+<span class="c1"># Intento 1: API nueva de Evidently (&gt;= 0.4, incluye 0.7.x)</span>
+<span class="k">try</span><span class="p">:</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">evidently</span><span class="w"> </span><span class="kn">import</span> <span class="n">Report</span>
+    <span class="kn">from</span><span class="w"> </span><span class="nn">evidently.presets</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataDriftPreset</span>
+
+    <span class="n">report</span> <span class="o">=</span> <span class="n">Report</span><span class="p">([</span><span class="n">DataDriftPreset</span><span class="p">()])</span>
+    <span class="n">report_obj</span> <span class="o">=</span> <span class="n">report</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">current_data</span><span class="o">=</span><span class="n">X_test</span><span class="p">,</span> <span class="n">reference_data</span><span class="o">=</span><span class="n">X_train</span><span class="p">)</span>
+    <span class="n">report_obj</span><span class="o">.</span><span class="n">save_html</span><span class="p">(</span><span class="s2">&quot;data/drift_report.html&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reporte de Evidently (API nueva) guardado en data/drift_report.html&quot;</span><span class="p">)</span>
+<span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e_new</span><span class="p">:</span>
+    <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;API nueva de Evidently no disponible (</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">e_new</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e_new</span><span class="si">}</span><span class="s2">).&quot;</span><span class="p">)</span>
+
+    <span class="c1"># Intento 2: API vieja de Evidently (&lt;= 0.3.x)</span>
+    <span class="k">try</span><span class="p">:</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">evidently.report</span><span class="w"> </span><span class="kn">import</span> <span class="n">Report</span>
+        <span class="kn">from</span><span class="w"> </span><span class="nn">evidently.metric_preset</span><span class="w"> </span><span class="kn">import</span> <span class="n">DataDriftPreset</span>
+
+        <span class="n">report</span> <span class="o">=</span> <span class="n">Report</span><span class="p">(</span><span class="n">metrics</span><span class="o">=</span><span class="p">[</span><span class="n">DataDriftPreset</span><span class="p">()])</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">run</span><span class="p">(</span><span class="n">reference_data</span><span class="o">=</span><span class="n">X_train</span><span class="p">,</span> <span class="n">current_data</span><span class="o">=</span><span class="n">X_test</span><span class="p">)</span>
+        <span class="n">report</span><span class="o">.</span><span class="n">save_html</span><span class="p">(</span><span class="s2">&quot;data/drift_report.html&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Reporte de Evidently (API vieja) guardado en data/drift_report.html&quot;</span><span class="p">)</span>
+    <span class="k">except</span> <span class="ne">Exception</span> <span class="k">as</span> <span class="n">e_old</span><span class="p">:</span>
+        <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;API vieja de Evidently tampoco funcionó (</span><span class="si">{</span><span class="nb">type</span><span class="p">(</span><span class="n">e_old</span><span class="p">)</span><span class="o">.</span><span class="vm">__name__</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">e_old</span><span class="si">}</span><span class="s2">).&quot;</span><span class="p">)</span>
+        <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Se usa un análisis de deriva manual (prueba de Kolmogorov-Smirnov) como respaldo.</span><span class="se">\n</span><span class="s2">&quot;</span><span class="p">)</span>
+        <span class="n">drift_df</span> <span class="o">=</span> <span class="n">manual_drift_report</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">numeric_features</span><span class="p">)</span>
+        <span class="n">display</span><span class="p">(</span><span class="n">drift_df</span><span class="p">)</span>
+
+<span class="c1"># Si Evidently sí corrió, muestra el reporte interactivo en el notebook</span>
+<span class="k">if</span> <span class="n">report_obj</span> <span class="ow">is</span> <span class="ow">not</span> <span class="kc">None</span><span class="p">:</span>
+    <span class="n">report_obj</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>API nueva de Evidently no disponible (ModuleNotFoundError: No module named &#39;evidently&#39;).
+API vieja de Evidently tampoco funcionó (ModuleNotFoundError: No module named &#39;evidently&#39;).
+Se usa un análisis de deriva manual (prueba de Kolmogorov-Smirnov) como respaldo.
+</pre></div>
+</div>
+<div class="output text_html"><div>
+<style scoped>
+    .dataframe tbody tr th:only-of-type {
+        vertical-align: middle;
+    }
+
+    .dataframe tbody tr th {
+        vertical-align: top;
+    }
+
+    .dataframe thead th {
+        text-align: right;
+    }
+</style>
+<table border="1" class="dataframe">
+  <thead>
+    <tr style="text-align: right;">
+      <th></th>
+      <th>feature</th>
+      <th>ks_statistic</th>
+      <th>p_value</th>
+      <th>drift_detected</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th>0</th>
+      <td>Age</td>
+      <td>0.104890</td>
+      <td>0.072136</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>1</th>
+      <td>RestingBP</td>
+      <td>0.064862</td>
+      <td>0.538815</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>2</th>
+      <td>Cholesterol</td>
+      <td>0.125533</td>
+      <td>0.017362</td>
+      <td>True</td>
+    </tr>
+    <tr>
+      <th>3</th>
+      <td>FastingBS</td>
+      <td>0.021117</td>
+      <td>1.000000</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>4</th>
+      <td>MaxHR</td>
+      <td>0.061530</td>
+      <td>0.608245</td>
+      <td>False</td>
+    </tr>
+    <tr>
+      <th>5</th>
+      <td>Oldpeak</td>
+      <td>0.077257</td>
+      <td>0.322876</td>
+      <td>False</td>
+    </tr>
+  </tbody>
+</table>
+</div></div></div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;steelblue&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Train (referencia)&quot;</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Test (actual)&quot;</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Comparación de distribuciones - Age&quot;</span><span class="p">)</span>
+<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
+<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
+</div>
+<div class="cell_output docutils container">
+<img alt="../../_images/e1c08766c051ec012ff0d0a875b69e735a6b1400c1cfbaa262b9e366e56f3321.png" src="../../_images/e1c08766c051ec012ff0d0a875b69e735a6b1400c1cfbaa262b9e366e56f3321.png" />
+</div>
+</div>
+<p><strong>Resultados:</strong> los histogramas de <code class="docutils literal notranslate"><span class="pre">Age</span></code> en train y test muestran una alta superposición, y (si Evidently o la prueba KS corrieron) los p-values de las variables numéricas no indican deriva severa. Esto sugiere que el modelo se aplica sobre una población similar a la de entrenamiento, lo cual es una señal positiva para su estabilidad en producción.</p>
+<p>Para un monitoreo real, este análisis debería ejecutarse periódicamente contra datos nuevos (no contra el propio test set), por ejemplo como un job programado que compare el tráfico reciente de la API contra el set de referencia.</p>
+</section>
+<section id="conclusiones-generales">
+<h2>Conclusiones generales<a class="headerlink" href="#conclusiones-generales" title="Link to this heading">#</a></h2>
+<ul class="simple">
+<li><p>El EDA confirmó un dataset limpio (sin nulos ni duplicados) y balanceado, con <code class="docutils literal notranslate"><span class="pre">ChestPainType</span></code> y <code class="docutils literal notranslate"><span class="pre">ST_Slope</span></code> como variables más asociadas a <code class="docutils literal notranslate"><span class="pre">HeartDisease</span></code>.</p></li>
+<li><p>Se demostró de forma práctica el efecto del <em>data leakage</em>: escalar antes de dividir infla el AUC de validación; por eso todo el modelado posterior usa <code class="docutils literal notranslate"><span class="pre">Pipeline</span></code> + <code class="docutils literal notranslate"><span class="pre">GridSearchCV</span></code> con el escalado ajustado únicamente sobre <code class="docutils literal notranslate"><span class="pre">X_train</span></code>.</p></li>
+<li><p>De los 5 modelos comparados, el de mejor AUC en test RandomForest quedó exportado como pipeline completo en <code class="docutils literal notranslate"><span class="pre">app/model.joblib</span></code>.</p></li>
+<li><p>El modelo se sirve mediante una API FastAPI, contenerizada con Docker y desplegable en Kubernetes (<code class="docutils literal notranslate"><span class="pre">k8s/deployment.yaml</span></code>, <code class="docutils literal notranslate"><span class="pre">k8s/service.yaml</span></code>).</p></li>
+<li><p>El flujo de CI en GitHub Actions corre linting y pruebas automáticas en cada push.</p></li>
+<li><p>El monitoreo de deriva (Evidently o su respaldo manual) permite verificar que la distribución de los datos de producción siga pareciéndose a la de entrenamiento.</p></li>
+</ul>
+</section>
+</section>
+
+    <script type="text/x-thebe-config">
+    {
+        requestKernel: true,
+        binderOptions: {
+            repo: "lauraformore/Tareas_ML",
+            ref: "main",
+        },
+        codeMirrorConfig: {
+            theme: "abcdef",
+            mode: "python"
+        },
+        kernelOptions: {
+            name: "python3",
+            path: "./Tarea_2\Heart_Predition"
+        },
+        predefinedOutput: true
+    }
+    </script>
+    <script>kernelName = 'python3'</script>
+
+                </article>
+              
+
+              
+              
+              
+              
+                <footer class="prev-next-footer d-print-none">
+                  
+<div class="prev-next-area">
+    <a class="left-prev"
+       href="../../Tarea_1/Tarea_1_ML.html"
+       title="previous page">
+      <i class="fa-solid fa-angle-left"></i>
+      <div class="prev-next-info">
+        <p class="prev-next-subtitle">previous</p>
+        <p class="prev-next-title">Proyecto Integrador de aprendizaje automático: Clasificación de Riesgo Crediticio con PySpark, scikit-learn y LIME</p>
+      </div>
+    </a>
+</div>
+                </footer>
+              
+            </div>
+            
+            
+              
+                <dialog id="pst-secondary-sidebar-modal"></dialog>
+                <div id="pst-secondary-sidebar" class="bd-sidebar-secondary bd-toc"><div class="sidebar-secondary-items sidebar-secondary__inner">
+
+
+  <div class="sidebar-secondary-item"><div
+    id="pst-page-navigation-heading-2"
+    class="page-toc tocsection onthispage">
+    <i class="fa-solid fa-list"></i> Contents
+  </div>
+  <nav id="pst-page-toc-nav" class="page-toc" aria-labelledby="pst-page-navigation-heading-2">
+    <ul class="pst-show_toc_level nav section-nav flex-column">
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#analisis-exploratorio-de-datos-eda-y-preprocesamiento">1. Análisis Exploratorio de Datos (EDA) y Preprocesamiento</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#importacion-de-librerias">1.1 Importación de librerías</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#carga-del-dataset">1.2 Carga del dataset</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#informe-visual-automatico-opcional">1.3 Informe visual automático (opcional)</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#hallazgos-del-eda">1.4 Hallazgos del EDA</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#deteccion-de-data-leakage">1.5 Detección de Data Leakage</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#modelado-con-validacion-segura">Modelado con validación segura</a><ul class="nav section-nav flex-column">
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#evaluacion-del-mejor-modelo">2.1 Evaluación del mejor modelo</a></li>
+<li class="toc-h3 nav-item toc-entry"><a class="reference internal nav-link" href="#exportar-el-modelo-ganador">2.2 Exportar el modelo ganador</a></li>
+</ul>
+</li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#despliegue-local-con-fastapi-docker">Despliegue local con FastAPI + Docker</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#orquestacion-con-kubernetes">Orquestación con Kubernetes</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#integracion-continua-con-github-actions">Integración continua con GitHub Actions</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#etapa-6-monitoreo-de-deriva-de-datos-data-drift">Etapa 6. Monitoreo de deriva de datos (Data Drift)</a></li>
+<li class="toc-h2 nav-item toc-entry"><a class="reference internal nav-link" href="#conclusiones-generales">Conclusiones generales</a></li>
+</ul>
+  </nav></div>
+
+</div></div>
+              
+            
+          </div>
+          <footer class="bd-footer-content">
+            
+<div class="bd-footer-content__inner container">
+  
+  <div class="footer-item">
+    
+<p class="component-author">
+By Laura Rivera y Natalý Cárdenas
+</p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+
+  <p class="copyright">
+    
+      © Copyright 2023.
+      <br/>
+    
+  </p>
+
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+  <div class="footer-item">
+    
+  </div>
+  
+</div>
+          </footer>
+        
+
+      </main>
+    </div>
+  </div>
+  
+  <!-- Scripts loaded after <body> so the DOM is not blocked -->
+  <script defer src="../../_static/scripts/bootstrap.js?digest=55c26ed414f5f8a31ebb"></script>
+<script defer src="../../_static/scripts/pydata-sphinx-theme.js?digest=55c26ed414f5f8a31ebb"></script>
+
+  <footer class="bd-footer">
+  </footer>
+  </body>
+</html>

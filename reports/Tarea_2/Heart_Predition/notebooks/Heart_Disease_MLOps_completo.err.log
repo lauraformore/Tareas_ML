@@ -36,21 +36,25 @@ Traceback (most recent call last):
     raise CellExecutionError.from_cell_and_msg(cell, exec_reply_content)
 nbclient.exceptions.CellExecutionError: An error occurred while executing the following cell:
 ------------------
-from ydata_profiling import ProfileReport
-
-# Generamos el reporte
-profile = ProfileReport(df, title="Informe de los datos", explorative=True)
-profile.to_notebook_iframe()
-print("Informe visual generado: informe_datos_heart.html")
+model_path = "app/model.joblib"
+joblib.dump(best_pipeline, model_path)
+print(f"Modelo exportado en: {model_path}")
 ------------------
 
 
 [31m---------------------------------------------------------------------------[39m
-[31mModuleNotFoundError[39m                       Traceback (most recent call last)
-[36mCell[39m[36m [39m[32mIn[3][39m[32m, line 1[39m
-[32m----> [39m[32m1[39m [38;5;28;01mfrom[39;00m[38;5;250m [39m[34;01mydata_profiling[39;00m[38;5;250m [39m[38;5;28;01mimport[39;00m ProfileReport
-[32m      3[39m [38;5;66;03m# Generamos el reporte[39;00m
-[32m      4[39m profile = ProfileReport(df, title=[33m"[39m[33mInforme de los datos[39m[33m"[39m, explorative=[38;5;28;01mTrue[39;00m)
+[31mFileNotFoundError[39m                         Traceback (most recent call last)
+[36mCell[39m[36m [39m[32mIn[13][39m[32m, line 2[39m
+[32m      1[39m model_path = [33m"[39m[33mapp/model.joblib[39m[33m"[39m
+[32m----> [39m[32m2[39m [43mjoblib[49m[43m.[49m[43mdump[49m[43m([49m[43mbest_pipeline[49m[43m,[49m[43m [49m[43mmodel_path[49m[43m)[49m
+[32m      3[39m [38;5;28mprint[39m([33mf[39m[33m"[39m[33mModelo exportado en: [39m[38;5;132;01m{[39;00mmodel_path[38;5;132;01m}[39;00m[33m"[39m)
 
-[31mModuleNotFoundError[39m: No module named 'ydata_profiling'
+[36mFile [39m[32m~\anaconda3\Lib\site-packages\joblib\numpy_pickle.py:599[39m, in [36mdump[39m[34m(value, filename, compress, protocol)[39m
+[32m    597[39m         NumpyPickler(f, protocol=protocol).dump(value)
+[32m    598[39m [38;5;28;01melif[39;00m is_filename:
+[32m--> [39m[32m599[39m     [38;5;28;01mwith[39;00m [38;5;28;43mopen[39;49m[43m([49m[43mfilename[49m[43m,[49m[43m [49m[33;43m"[39;49m[33;43mwb[39;49m[33;43m"[39;49m[43m)[49m [38;5;28;01mas[39;00m f:
+[32m    600[39m         NumpyPickler(f, protocol=protocol).dump(value)
+[32m    601[39m [38;5;28;01melse[39;00m:
+
+[31mFileNotFoundError[39m: [Errno 2] No such file or directory: 'app/model.joblib'
 
