@@ -695,7 +695,7 @@ Tamaño de prueba: (184, 11)
 </div>
 <div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
 <span class="ne">ValueError</span><span class="g g-Whitespace">                                </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">24</span><span class="p">],</span> <span class="n">line</span> <span class="mi">19</span>
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">19</span>
 <span class="g g-Whitespace">     </span><span class="mi">15</span> 
 <span class="g g-Whitespace">     </span><span class="mi">16</span> <span class="n">results</span> <span class="o">=</span> <span class="p">{}</span>
 <span class="g g-Whitespace">     </span><span class="mi">17</span> <span class="k">for</span> <span class="n">name</span><span class="p">,</span> <span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">params</span><span class="p">)</span> <span class="ow">in</span> <span class="n">models</span><span class="o">.</span><span class="n">items</span><span class="p">():</span>
@@ -704,7 +704,7 @@ Tamaño de prueba: (184, 11)
 <span class="g g-Whitespace">     </span><span class="mi">20</span>     <span class="n">results</span><span class="p">[</span><span class="n">name</span><span class="p">]</span> <span class="o">=</span> <span class="n">grid</span>
 <span class="g g-Whitespace">     </span><span class="mi">21</span>     <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Mejores parámetros para </span><span class="si">{</span><span class="n">name</span><span class="si">}</span><span class="s2">: </span><span class="si">{</span><span class="n">grid</span><span class="o">.</span><span class="n">best_params_</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 
-<span class="nn">Cell In[24], line 6,</span> in <span class="ni">train_pipeline</span><span class="nt">(X_train, y_train, model, param_grid)</span>
+<span class="nn">Cell In[5], line 6,</span> in <span class="ni">train_pipeline</span><span class="nt">(X_train, y_train, model, param_grid)</span>
 <span class="g g-Whitespace">      </span><span class="mi">2</span> <span class="k">def</span><span class="w"> </span><span class="nf">train_pipeline</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">model</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">):</span>
 <span class="g g-Whitespace">      </span><span class="mi">3</span>     <span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([(</span><span class="s2">&quot;scaler&quot;</span><span class="p">,</span> <span class="n">MinMaxScaler</span><span class="p">()),</span> <span class="p">(</span><span class="s2">&quot;clf&quot;</span><span class="p">,</span> <span class="n">model</span><span class="p">)])</span>
 <span class="g g-Whitespace">      </span><span class="mi">4</span>     <span class="c1"># error_score=&#39;raise&#39; nos ayudará a ver errores específicos si algo falla</span>
