@@ -1,0 +1,14 @@
+version: '3.8'
+
+services:
+  api:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile
+    container_name: prediccion_cardiaca_api
+    ports:
+      - "8000:8000"
+    volumes:
+      - ./app:/app/app  # Sincroniza los cambios locales con el contenedor (útil en desarrollo)
+    environment:
+      - PYTHONUNBUFFERED=1

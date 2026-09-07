@@ -1,0 +1,9 @@
+format: jb-book
+root: intro
+parts:
+  - caption: Tareas de Machine Learning
+    chapters:
+      - file: Tarea_1/Tarea_1_ML
+        title: Tarea 1 - Clasificación de Riesgo Crediticio
+      - file: Tarea_2/Heart_Predition/notebooks/1_model_leakage_demo
+        title: Tarea 2 - Predicción de Enfermedades Cardíacas
