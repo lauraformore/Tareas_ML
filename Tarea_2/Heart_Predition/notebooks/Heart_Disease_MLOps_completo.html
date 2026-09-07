@@ -442,7 +442,9 @@
                   
   <section class="tex2jax_ignore mathjax_ignore" id="proyecto-integrador-prediccion-de-enfermedades-cardiacas-mlops-local">
 <h1>Proyecto Integrador: Predicción de Enfermedades Cardíacas (MLOps Local)<a class="headerlink" href="#proyecto-integrador-prediccion-de-enfermedades-cardiacas-mlops-local" title="Link to this heading">#</a></h1>
-<p><strong>Autores:</strong> Nátaly Cárdenas y Laura Rivera</p>
+<p><strong>Contexto del Problema:</strong> Las enfermedades cardiovasculares son la principal causa de muerte en todo el mundo, según la OMS. Detectarlas a tiempo es fundamental para evitar complicaciones graves. Con la digitalización de los historiales médicos y la disponibilidad de datos clínicos estructurados, ahora es posible utilizar técnicas de aprendizaje automático para <strong>predecir el riesgo de falla cardíaca</strong>.</p>
+<p>El dataset <em>“Heart Failure Prediction”</em> contiene registros clínicos de pacientes, con variables como presión sanguínea, colesterol, glucosa, edad, entre otras. El objetivo es construir un <strong>modelo de clasificación binaria</strong> que prediga si un paciente está en riesgo de sufrir una falla cardíaca o no (<code class="docutils literal notranslate"><span class="pre">HeartDisease</span> <span class="pre">=</span> <span class="pre">1</span></code> o <code class="docutils literal notranslate"><span class="pre">0</span></code>).</p>
+<p>**Objetivo Final:**Desarrollar, evaluar y desplegar un modelo de predicción de falla cardíaca, con control de calidad y monitoreo integrado, aplicando prácticas de MLOps en un entorno local.</p>
 <p><strong>Dataset:</strong> <a class="reference external" href="https://www.kaggle.com/datasets/fedesoriano/heart-failure-prediction">Heart Failure Prediction Dataset</a> (Kaggle). Combina 5 datasets clínicos históricos (Cleveland, Hungría, Suiza, Long Beach VA y Stalog) en 918 registros, con 11 variables predictoras y la variable objetivo <code class="docutils literal notranslate"><span class="pre">HeartDisease</span></code>, usado para predecir el riesgo de enfermedad cardíaca.</p>
 <section id="analisis-exploratorio-de-datos-eda-y-preprocesamiento">
 <h2>1. Análisis Exploratorio de Datos (EDA) y Preprocesamiento<a class="headerlink" href="#analisis-exploratorio-de-datos-eda-y-preprocesamiento" title="Link to this heading">#</a></h2>
@@ -489,14 +491,9 @@
 <h3>1.2 Carga del dataset<a class="headerlink" href="#carga-del-dataset" title="Link to this heading">#</a></h3>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Se prueban varias rutas comunes; ajusta DATA_PATH si tu archivo está en otro lugar</span>
-<span class="n">filename</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;C:\Users\laure\Documents\Proyectos\Heart_Predition\heart.csv&quot;</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">filename</span> <span class="o">=</span> <span class="sa">r</span><span class="s2">&quot;C:\Users\laure\Documents\Proyectos\Heart_Predition\heart.csv&quot;</span>
 <span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 
-<span class="c1"># candidate_paths = [filename, os.path.join(BASE_DIR, &quot;data&quot;, &quot;heart.csv&quot;), os.path.join(BASE_DIR, &quot;heart.csv&quot;)]</span>
-<span class="c1"># DATA_PATH = next((p for p in candidate_paths if os.path.exists(p)), candidate_paths[0])</span>
-
-<span class="n">df</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">read_csv</span><span class="p">(</span><span class="n">filename</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Dataset cargado desde: </span><span class="si">{</span><span class="n">filename</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="nb">print</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Forma del dataset: </span><span class="si">{</span><span class="n">df</span><span class="o">.</span><span class="n">shape</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
 <span class="n">df</span><span class="o">.</span><span class="n">head</span><span class="p">()</span>
@@ -730,7 +727,7 @@ Forma del dataset: (918, 12)
 </div>
 <div class="cell_output docutils container">
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AUC con fuga de datos : 0.9275
-AUC sin fuga de datos : 0.9279
+AUC sin fuga de datos : 0.9274
 </pre></div>
 </div>
 </div>
