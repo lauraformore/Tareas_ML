@@ -442,6 +442,9 @@
   <section class="tex2jax_ignore mathjax_ignore" id="proyecto-integrador-prediccion-de-enfermedades-cardiacas-mlops-local">
 <h1>Proyecto Integrador: Predicción de Enfermedades Cardíacas (MLOps Local)<a class="headerlink" href="#proyecto-integrador-prediccion-de-enfermedades-cardiacas-mlops-local" title="Link to this heading">#</a></h1>
 <p><strong>Autores:</strong> Nátaly Cárdenas y Laura Rivera</p>
+<p><strong>Contexto del Problema:</strong> Las enfermedades cardiovasculares son la principal causa de muerte en todo el mundo, según la OMS. Detectarlas a tiempo es fundamental para evitar complicaciones graves. Con la digitalización de los historiales médicos y la disponibilidad de datos clínicos estructurados, ahora es posible utilizar técnicas de aprendizaje automático para <strong>predecir el riesgo de falla cardíaca</strong>.</p>
+<p>El dataset <em>“Heart Failure Prediction”</em> contiene registros clínicos de pacientes, con variables como presión sanguínea, colesterol, glucosa, edad, entre otras. El objetivo es construir un <strong>modelo de clasificación binaria</strong> que prediga si un paciente está en riesgo de sufrir una falla cardíaca o no (<code class="docutils literal notranslate"><span class="pre">HeartDisease</span> <span class="pre">=</span> <span class="pre">1</span></code> o <code class="docutils literal notranslate"><span class="pre">0</span></code>).</p>
+<p><strong>Objetivo Final:</strong> Desarrollar, evaluar y desplegar un modelo de predicción de falla cardíaca, con control de calidad y monitoreo integrado, aplicando prácticas de MLOps en un entorno local.</p>
 <p><strong>Dataset:</strong> <a class="reference external" href="https://www.kaggle.com/datasets/fedesoriano/heart-failure-prediction">Heart Failure Prediction Dataset</a> (Kaggle). Combina 5 datasets clínicos históricos (Cleveland, Hungría, Suiza, Long Beach VA y Stalog) en 918 registros, con 11 variables predictoras y la variable objetivo <code class="docutils literal notranslate"><span class="pre">HeartDisease</span></code>, usado para predecir el riesgo de enfermedad cardíaca.</p>
 <section id="analisis-exploratorio-de-datos-eda-y-preprocesamiento">
 <h2>1. Análisis Exploratorio de Datos (EDA) y Preprocesamiento<a class="headerlink" href="#analisis-exploratorio-de-datos-eda-y-preprocesamiento" title="Link to this heading">#</a></h2>
@@ -761,7 +764,7 @@ Prueba: 184 muestras
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">train_pipeline</span><span class="p">(</span><span class="n">model</span><span class="p">,</span> <span class="n">param_grid</span><span class="p">,</span> <span class="n">X_train</span><span class="p">,</span> <span class="n">y_train</span><span class="p">,</span> <span class="n">cv</span><span class="o">=</span><span class="n">cv</span><span class="p">,</span> <span class="n">scoring</span><span class="o">=</span><span class="s2">&quot;roc_auc&quot;</span><span class="p">):</span>
-    <span class="c1"># \&quot;\&quot;\&quot;Construye un Pipeline (preprocessor + modelo) y lo optimiza con GridSearchCV.\&quot;\&quot;\&quot;</span>
+    <span class="c1"># Construye un Pipeline (preprocessor + modelo) y lo optimiza con GridSearchCV.</span>
     <span class="n">pipe</span> <span class="o">=</span> <span class="n">Pipeline</span><span class="p">([</span>
         <span class="p">(</span><span class="s2">&quot;preprocessor&quot;</span><span class="p">,</span> <span class="n">preprocessor</span><span class="p">),</span>
         <span class="p">(</span><span class="s2">&quot;classifier&quot;</span><span class="p">,</span> <span class="n">model</span><span class="p">),</span>
@@ -772,7 +775,7 @@ Prueba: 184 muestras
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">evaluate_pipeline</span><span class="p">(</span><span class="n">name</span><span class="p">,</span> <span class="n">grid</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">y_test</span><span class="p">):</span>
-    <span class="c1"># \&quot;\&quot;\&quot;Evalúa un GridSearchCV ya entrenado y devuelve un diccionario con sus métricas.\&quot;\&quot;\&quot;</span>
+    <span class="c1"># Evalúa un GridSearchCV ya entrenado y devuelve un diccionario con sus métricas.</span>
     <span class="n">y_pred</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">predict</span><span class="p">(</span><span class="n">X_test</span><span class="p">)</span>
     <span class="n">y_prob</span> <span class="o">=</span> <span class="n">grid</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X_test</span><span class="p">)[:,</span> <span class="mi">1</span><span class="p">]</span>
     <span class="k">return</span> <span class="p">{</span>
@@ -1060,11 +1063,12 @@ Mejores parámetros: {&#39;classifier__max_depth&#39;: 5, &#39;classifier__n_est
 </div>
 </div>
 </div>
-<p>Comandos para construir y ejecutar el contenedor localmente (se corren en una terminal, no en el notebook):</p>
+<p>Comandos para construir y ejecutar el contenedor localmente :</p>
 <div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>docker<span class="w"> </span>build<span class="w"> </span>-t<span class="w"> </span>heart-disease-mlops<span class="w"> </span>-f<span class="w"> </span>docker/Dockerfile<span class="w"> </span>.
 docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span>heart-disease-mlops
 </pre></div>
 </div>
+<p><img alt="image.png" src="Tarea_2/Heart_Predition/attachment:image.png" /></p>
 </section>
 <section id="orquestacion-con-kubernetes">
 <h2>Orquestación con Kubernetes<a class="headerlink" href="#orquestacion-con-kubernetes" title="Link to this heading">#</a></h2>
@@ -1130,10 +1134,12 @@ kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> <
 kubectl<span class="w"> </span>get<span class="w"> </span>svc
 </pre></div>
 </div>
+<p><img alt="image.png" src="Tarea_2/Heart_Predition/attachment:image.png" /></p>
+<p>Heart-service ya está corriendo con EXTERNAL-IP: 172.18.0.2 en el puerto 80 (mapeado al 31215 del nodo).</p>
 </section>
 <section id="integracion-continua-con-github-actions">
 <h2>Integración continua con GitHub Actions<a class="headerlink" href="#integracion-continua-con-github-actions" title="Link to this heading">#</a></h2>
-<p>En cada <code class="docutils literal notranslate"><span class="pre">push</span></code> se instalan las dependencias, se revisa el estilo del código (<code class="docutils literal notranslate"><span class="pre">flake8</span></code>) y se corren las pruebas automáticas (<code class="docutils literal notranslate"><span class="pre">pytest</span></code>).</p>
+<p>En cada <code class="docutils literal notranslate"><span class="pre">push</span></code> se instalan las dependencias,  se corren las pruebas automáticas (<code class="docutils literal notranslate"><span class="pre">pytest</span></code>).</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%writefile</span> tests/test_api.py
@@ -1208,7 +1214,7 @@ kubectl<span class="w"> </span>get<span class="w"> </span>svc
 </section>
 <section id="etapa-6-monitoreo-de-deriva-de-datos-data-drift">
 <h2>Etapa 6. Monitoreo de deriva de datos (Data Drift)<a class="headerlink" href="#etapa-6-monitoreo-de-deriva-de-datos-data-drift" title="Link to this heading">#</a></h2>
-<p>Se compara la distribución de <code class="docutils literal notranslate"><span class="pre">X_train</span></code> (referencia) contra <code class="docutils literal notranslate"><span class="pre">X_test</span></code> (datos “actuales”) para detectar deriva. Se usa <code class="docutils literal notranslate"><span class="pre">Evidently</span></code>; si la versión instalada es incompatible con tu entorno (error frecuente con NumPy 2.0), la celda cae automáticamente en un análisis de respaldo con prueba de Kolmogorov–Smirnov, que mide lo mismo de forma manual.</p>
+<p>Se compara la distribución de <code class="docutils literal notranslate"><span class="pre">X_train</span></code> (referencia) contra <code class="docutils literal notranslate"><span class="pre">X_test</span></code> (datos “actuales”) para detectar deriva. Se usa <code class="docutils literal notranslate"><span class="pre">Evidently</span></code>; si la versión instalada es incompatible con el entorno , la celda cae automáticamente en un análisis de respaldo con prueba de Kolmogorov–Smirnov, que mide lo mismo de forma manual.</p>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">def</span><span class="w"> </span><span class="nf">manual_drift_report</span><span class="p">(</span><span class="n">X_train</span><span class="p">,</span> <span class="n">X_test</span><span class="p">,</span> <span class="n">numeric_features</span><span class="p">):</span>
