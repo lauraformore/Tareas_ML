@@ -486,6 +486,17 @@
 </div>
 </div>
 </div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># from IPython.display import Image, display</span>
+
+<span class="c1"># # Generar y guardar imagen</span>
+<span class="c1"># plt.savefig(&#39;Imagenes/1.png&#39;)</span>
+<span class="c1"># display(Image(&#39;Imagenes/1.png&#39;))</span>
+</pre></div>
+</div>
+</div>
+</div>
 </section>
 <section id="carga-del-dataset">
 <h3>1.2 Carga del dataset<a class="headerlink" href="#carga-del-dataset" title="Link to this heading">#</a></h3>
@@ -655,18 +666,60 @@ Forma del dataset: (918, 12)
 </ul>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">axes</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="mi">2</span><span class="p">,</span> <span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">12</span><span class="p">,</span> <span class="mi">4</span><span class="p">))</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">countplot</span><span class="p">(</span><span class="n">x</span><span class="o">=</span><span class="s2">&quot;HeartDisease&quot;</span><span class="p">,</span> <span class="n">data</span><span class="o">=</span><span class="n">df</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">])</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">0</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Balance de clases (HeartDisease)&quot;</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">df</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">],</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">])</span>
-<span class="n">axes</span><span class="p">[</span><span class="mi">1</span><span class="p">]</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Distribución de la edad&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">tight_layout</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">PALETA</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="s2">&quot;sky&quot;</span><span class="p">:</span> <span class="s2">&quot;#62C4DA&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;coral&quot;</span><span class="p">:</span> <span class="s2">&quot;#FA855A&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;peach&quot;</span><span class="p">:</span> <span class="s2">&quot;#FFDE96&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;tomato&quot;</span><span class="p">:</span> <span class="s2">&quot;#C93638&quot;</span><span class="p">,</span>
+    <span class="s2">&quot;honeydew&quot;</span><span class="p">:</span> <span class="s2">&quot;#F6FFEA&quot;</span><span class="p">,</span>
+<span class="p">}</span>
+
+<span class="c1"># Balance de clases (variable objetivo)</span>
+<span class="n">df_plot</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="n">df_plot</span><span class="p">[</span><span class="s2">&quot;HeartDisease&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_plot</span><span class="p">[</span><span class="s2">&quot;HeartDisease&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;No enfermedad&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;Enfermedad&quot;</span><span class="p">})</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span>
+    <span class="n">df_plot</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">&quot;HeartDisease&quot;</span><span class="p">,</span>
+    <span class="n">color</span><span class="o">=</span><span class="s2">&quot;HeartDisease&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Distribución de la variable objetivo (HeartDisease)&quot;</span><span class="p">,</span>
+    <span class="n">text_auto</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">color_discrete_map</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;No enfermedad&quot;</span><span class="p">:</span> <span class="n">PALETA</span><span class="p">[</span><span class="s2">&quot;sky&quot;</span><span class="p">],</span> <span class="s2">&quot;Enfermedad&quot;</span><span class="p">:</span> <span class="n">PALETA</span><span class="p">[</span><span class="s2">&quot;tomato&quot;</span><span class="p">]}</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">bargap</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">showlegend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">xaxis_title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">&quot;Pacientes&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="c1"># Distribución de la edad</span>
+<span class="n">fig_age</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span>
+    <span class="n">df</span><span class="p">,</span> <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="n">nbins</span><span class="o">=</span><span class="mi">30</span><span class="p">,</span> <span class="n">marginal</span><span class="o">=</span><span class="s2">&quot;box&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Distribución de la edad&quot;</span><span class="p">,</span>
+    <span class="n">color_discrete_sequence</span><span class="o">=</span><span class="p">[</span><span class="n">PALETA</span><span class="p">[</span><span class="s2">&quot;coral&quot;</span><span class="p">]]</span>
+<span class="p">)</span>
+<span class="n">fig_age</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">bargap</span><span class="o">=</span><span class="mf">0.05</span><span class="p">,</span> <span class="n">xaxis_title</span><span class="o">=</span><span class="s2">&quot;Edad&quot;</span><span class="p">,</span> <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">&quot;Pacientes&quot;</span><span class="p">)</span>
+<span class="n">fig_age</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/8284638cc343932eb528aa7ab954e887098311a7e920de6a0bc1553afb59001e.png" src="../../_images/8284638cc343932eb528aa7ab954e887098311a7e920de6a0bc1553afb59001e.png" />
+<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
+<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
+<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">13</span>
+<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">df_plot</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
+<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">df_plot</span><span class="p">[</span><span class="s2">&quot;HeartDisease&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_plot</span><span class="p">[</span><span class="s2">&quot;HeartDisease&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;No enfermedad&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;Enfermedad&quot;</span><span class="p">})</span>
+<span class="ne">---&gt; </span><span class="mi">13</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span>
+<span class="g g-Whitespace">     </span><span class="mi">14</span>     <span class="n">df_plot</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">15</span>     <span class="n">x</span><span class="o">=</span><span class="s2">&quot;HeartDisease&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">16</span>     <span class="n">color</span><span class="o">=</span><span class="s2">&quot;HeartDisease&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">17</span>     <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Distribución de la variable objetivo (HeartDisease)&quot;</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">18</span>     <span class="n">text_auto</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">color_discrete_map</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;No enfermedad&quot;</span><span class="p">:</span> <span class="n">PALETA</span><span class="p">[</span><span class="s2">&quot;sky&quot;</span><span class="p">],</span> <span class="s2">&quot;Enfermedad&quot;</span><span class="p">:</span> <span class="n">PALETA</span><span class="p">[</span><span class="s2">&quot;tomato&quot;</span><span class="p">]}</span>
+<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">bargap</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">showlegend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">xaxis_title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">&quot;Pacientes&quot;</span><span class="p">)</span>
+<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+
+<span class="ne">NameError</span>: name &#39;px&#39; is not defined
+</pre></div>
+</div>
 </div>
 </div>
 </section>
@@ -731,8 +784,136 @@ Forma del dataset: (918, 12)
 </div>
 </div>
 <div class="cell_output docutils container">
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+</pre></div>
+</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AUC con fuga de datos : 0.9275
 AUC sin fuga de datos : 0.9279
+</pre></div>
+</div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
 </pre></div>
 </div>
 </div>
@@ -833,21 +1014,19 @@ Prueba: 184 muestras
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Entrenando SVC...
 </pre></div>
 </div>
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
+  warnings.warn(
+</pre></div>
+</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  AUC (test): 0.9279 | Accuracy: 0.8913
 Entrenando LogisticRegression...
   AUC (test): 0.9293 | Accuracy: 0.8859
 Entrenando RandomForest...
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  AUC (test): 0.9358 | Accuracy: 0.8967
+  AUC (test): 0.9358 | Accuracy: 0.8967
 Entrenando KNN...
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  AUC (test): 0.9296 | Accuracy: 0.8696
+  AUC (test): 0.9296 | Accuracy: 0.8696
 Entrenando GradientBoosting...
-</pre></div>
-</div>
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  AUC (test): 0.9308 | Accuracy: 0.9076
+  AUC (test): 0.9308 | Accuracy: 0.9076
 </pre></div>
 </div>
 </div>
@@ -952,22 +1131,79 @@ Mejores parámetros: {&#39;classifier__max_depth&#39;: 5, &#39;classifier__n_est
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Matriz de confusión</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Matriz de confusión (interactiva con Plotly, con la paleta del proyecto)</span>
 <span class="n">cm</span> <span class="o">=</span> <span class="n">confusion_matrix</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">best_metrics</span><span class="p">[</span><span class="s2">&quot;y_pred&quot;</span><span class="p">])</span>
-<span class="n">ConfusionMatrixDisplay</span><span class="p">(</span><span class="n">confusion_matrix</span><span class="o">=</span><span class="n">cm</span><span class="p">)</span><span class="o">.</span><span class="n">plot</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Matriz de confusión - </span><span class="si">{</span><span class="n">best_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">labels</span> <span class="o">=</span> <span class="p">[</span><span class="s2">&quot;No enfermedad&quot;</span><span class="p">,</span> <span class="s2">&quot;Enfermedad&quot;</span><span class="p">]</span>  <span class="c1"># 0 = No enfermedad, 1 = Enfermedad (según HeartDisease)</span>
 
-<span class="c1"># Curva ROC</span>
-<span class="n">RocCurveDisplay</span><span class="o">.</span><span class="n">from_predictions</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">best_metrics</span><span class="p">[</span><span class="s2">&quot;y_prob&quot;</span><span class="p">])</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">title</span><span class="p">(</span><span class="sa">f</span><span class="s2">&quot;Curva ROC - </span><span class="si">{</span><span class="n">best_name</span><span class="si">}</span><span class="s2"> (AUC = </span><span class="si">{</span><span class="n">best_metrics</span><span class="p">[</span><span class="s1">&#39;AUC&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">)</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<span class="n">paleta_matriz</span> <span class="o">=</span> <span class="p">[[</span><span class="mi">0</span><span class="p">,</span> <span class="n">PALETA</span><span class="p">[</span><span class="s2">&quot;honeydew&quot;</span><span class="p">]],</span> <span class="p">[</span><span class="mi">1</span><span class="p">,</span> <span class="n">PALETA</span><span class="p">[</span><span class="s2">&quot;tomato&quot;</span><span class="p">]]]</span>
+
+<span class="n">fig</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">(</span><span class="n">data</span><span class="o">=</span><span class="n">go</span><span class="o">.</span><span class="n">Heatmap</span><span class="p">(</span>
+    <span class="n">z</span><span class="o">=</span><span class="n">cm</span><span class="p">,</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
+    <span class="n">y</span><span class="o">=</span><span class="n">labels</span><span class="p">,</span>
+    <span class="n">colorscale</span><span class="o">=</span><span class="n">paleta_matriz</span><span class="p">,</span>
+    <span class="n">showscale</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
+    <span class="n">hovertemplate</span><span class="o">=</span><span class="s2">&quot;Real: %</span><span class="si">{y}</span><span class="s2">&lt;br&gt;Predicho: %</span><span class="si">{x}</span><span class="s2">&lt;br&gt;Conteo: %</span><span class="si">{z}</span><span class="s2">&lt;extra&gt;&lt;/extra&gt;&quot;</span>
+<span class="p">))</span>
+
+<span class="n">annotations</span> <span class="o">=</span> <span class="p">[]</span>
+<span class="k">for</span> <span class="n">i</span><span class="p">,</span> <span class="n">row_label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+    <span class="k">for</span> <span class="n">j</span><span class="p">,</span> <span class="n">col_label</span> <span class="ow">in</span> <span class="nb">enumerate</span><span class="p">(</span><span class="n">labels</span><span class="p">):</span>
+        <span class="n">annotations</span><span class="o">.</span><span class="n">append</span><span class="p">(</span><span class="nb">dict</span><span class="p">(</span>
+            <span class="n">x</span><span class="o">=</span><span class="n">col_label</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">row_label</span><span class="p">,</span>
+            <span class="n">text</span><span class="o">=</span><span class="nb">str</span><span class="p">(</span><span class="n">cm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]),</span>
+            <span class="n">showarrow</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span>
+            <span class="n">font</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="s2">&quot;white&quot;</span> <span class="k">if</span> <span class="n">cm</span><span class="p">[</span><span class="n">i</span><span class="p">,</span> <span class="n">j</span><span class="p">]</span> <span class="o">&gt;</span> <span class="n">cm</span><span class="o">.</span><span class="n">max</span><span class="p">()</span> <span class="o">/</span> <span class="mi">2</span> <span class="k">else</span> <span class="s2">&quot;#33302A&quot;</span><span class="p">,</span> <span class="n">size</span><span class="o">=</span><span class="mi">16</span><span class="p">)</span>
+        <span class="p">))</span>
+
+<span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Matriz de confusión — </span><span class="si">{</span><span class="n">best_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">xaxis_title</span><span class="o">=</span><span class="s2">&quot;Predicción&quot;</span><span class="p">,</span>
+    <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">&quot;Valor real&quot;</span><span class="p">,</span>
+    <span class="n">annotations</span><span class="o">=</span><span class="n">annotations</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">500</span>
+<span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">update_yaxes</span><span class="p">(</span><span class="n">autorange</span><span class="o">=</span><span class="s2">&quot;reversed&quot;</span><span class="p">)</span>
+<span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/2b2ad8581aef4f52acfd29d73ec37860ef4ccc4f4b3186f47bd96976048a7dff.png" src="../../_images/2b2ad8581aef4f52acfd29d73ec37860ef4ccc4f4b3186f47bd96976048a7dff.png" />
-<img alt="../../_images/fd6baf459af814f312849b1388c9147b509eed04eabfdec33b6362dde04ac58e.png" src="../../_images/fd6baf459af814f312849b1388c9147b509eed04eabfdec33b6362dde04ac58e.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\laure\AppData\Local\Temp\ipykernel_13084\1388588237.py:5: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+C:\Users\laure\AppData\Local\Temp\ipykernel_13084\1388588237.py:10: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
+  plt.show()
+</pre></div>
+</div>
+</div>
+</div>
+<div class="cell docutils container">
+<div class="cell_input docutils container">
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="c1"># Curva ROC (interactiva con Plotly, con la paleta del proyecto)</span>
+<span class="n">fpr</span><span class="p">,</span> <span class="n">tpr</span><span class="p">,</span> <span class="n">_</span> <span class="o">=</span> <span class="n">roc_curve</span><span class="p">(</span><span class="n">y_test</span><span class="p">,</span> <span class="n">best_metrics</span><span class="p">[</span><span class="s2">&quot;y_prob&quot;</span><span class="p">])</span>
+
+<span class="n">fig_roc</span> <span class="o">=</span> <span class="n">go</span><span class="o">.</span><span class="n">Figure</span><span class="p">()</span>
+<span class="n">fig_roc</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="n">fpr</span><span class="p">,</span> <span class="n">y</span><span class="o">=</span><span class="n">tpr</span><span class="p">,</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;lines&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;</span><span class="si">{</span><span class="n">best_name</span><span class="si">}</span><span class="s2"> (AUC = </span><span class="si">{</span><span class="n">best_metrics</span><span class="p">[</span><span class="s1">&#39;AUC&#39;</span><span class="p">]</span><span class="si">:</span><span class="s2">.3f</span><span class="si">}</span><span class="s2">)&quot;</span><span class="p">,</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">PALETA</span><span class="p">[</span><span class="s2">&quot;coral&quot;</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="mi">3</span><span class="p">),</span>
+    <span class="n">hovertemplate</span><span class="o">=</span><span class="s2">&quot;FPR: %</span><span class="si">{x:.3f}</span><span class="s2">&lt;br&gt;TPR: %</span><span class="si">{y:.3f}</span><span class="s2">&lt;extra&gt;&lt;/extra&gt;&quot;</span>
+<span class="p">))</span>
+<span class="n">fig_roc</span><span class="o">.</span><span class="n">add_trace</span><span class="p">(</span><span class="n">go</span><span class="o">.</span><span class="n">Scatter</span><span class="p">(</span>
+    <span class="n">x</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">y</span><span class="o">=</span><span class="p">[</span><span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">],</span> <span class="n">mode</span><span class="o">=</span><span class="s2">&quot;lines&quot;</span><span class="p">,</span> <span class="n">name</span><span class="o">=</span><span class="s2">&quot;Azar (AUC = 0.5)&quot;</span><span class="p">,</span>
+    <span class="n">line</span><span class="o">=</span><span class="nb">dict</span><span class="p">(</span><span class="n">color</span><span class="o">=</span><span class="n">PALETA</span><span class="p">[</span><span class="s2">&quot;peach&quot;</span><span class="p">],</span> <span class="n">width</span><span class="o">=</span><span class="mi">2</span><span class="p">,</span> <span class="n">dash</span><span class="o">=</span><span class="s2">&quot;dash&quot;</span><span class="p">)</span>
+<span class="p">))</span>
+<span class="n">fig_roc</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span>
+    <span class="n">title</span><span class="o">=</span><span class="sa">f</span><span class="s2">&quot;Curva ROC — </span><span class="si">{</span><span class="n">best_name</span><span class="si">}</span><span class="s2">&quot;</span><span class="p">,</span>
+    <span class="n">xaxis_title</span><span class="o">=</span><span class="s2">&quot;Tasa de falsos positivos (FPR)&quot;</span><span class="p">,</span>
+    <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">&quot;Tasa de verdaderos positivos (TPR)&quot;</span><span class="p">,</span>
+    <span class="n">width</span><span class="o">=</span><span class="mi">550</span><span class="p">,</span>
+    <span class="n">height</span><span class="o">=</span><span class="mi">500</span><span class="p">,</span>
+    <span class="n">plot_bgcolor</span><span class="o">=</span><span class="n">PALETA</span><span class="p">[</span><span class="s2">&quot;honeydew&quot;</span><span class="p">]</span>
+<span class="p">)</span>
+<span class="n">fig_roc</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+</pre></div>
+</div>
 </div>
 </div>
 </section>
@@ -998,14 +1234,24 @@ Mejores parámetros: {&#39;classifier__max_depth&#39;: 5, &#39;classifier__n_est
 <span class="kn">from</span><span class="w"> </span><span class="nn">fastapi</span><span class="w"> </span><span class="kn">import</span> <span class="n">FastAPI</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">pydantic</span><span class="w"> </span><span class="kn">import</span> <span class="n">BaseModel</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">joblib</span>
-<span class="kn">import</span><span class="w"> </span><span class="nn">numpy</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">np</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">pandas</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">pd</span>
 
 <span class="n">model</span> <span class="o">=</span> <span class="n">joblib</span><span class="o">.</span><span class="n">load</span><span class="p">(</span><span class="s2">&quot;app/model.joblib&quot;</span><span class="p">)</span>
 <span class="n">app</span> <span class="o">=</span> <span class="n">FastAPI</span><span class="p">()</span>
 
 
 <span class="k">class</span><span class="w"> </span><span class="nc">Input</span><span class="p">(</span><span class="n">BaseModel</span><span class="p">):</span>
-    <span class="n">features</span><span class="p">:</span> <span class="nb">list</span>
+    <span class="n">Age</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">Sex</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">ChestPainType</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">RestingBP</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">Cholesterol</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">FastingBS</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">RestingECG</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">MaxHR</span><span class="p">:</span> <span class="nb">int</span>
+    <span class="n">ExerciseAngina</span><span class="p">:</span> <span class="nb">str</span>
+    <span class="n">Oldpeak</span><span class="p">:</span> <span class="nb">float</span>
+    <span class="n">ST_Slope</span><span class="p">:</span> <span class="nb">str</span>
 
 
 <span class="nd">@app</span><span class="o">.</span><span class="n">get</span><span class="p">(</span><span class="s2">&quot;/health&quot;</span><span class="p">)</span>
@@ -1015,7 +1261,7 @@ Mejores parámetros: {&#39;classifier__max_depth&#39;: 5, &#39;classifier__n_est
 
 <span class="nd">@app</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/predict&quot;</span><span class="p">)</span>
 <span class="k">def</span><span class="w"> </span><span class="nf">predict</span><span class="p">(</span><span class="n">data</span><span class="p">:</span> <span class="n">Input</span><span class="p">):</span>
-    <span class="n">X</span> <span class="o">=</span> <span class="n">np</span><span class="o">.</span><span class="n">array</span><span class="p">(</span><span class="n">data</span><span class="o">.</span><span class="n">features</span><span class="p">)</span><span class="o">.</span><span class="n">reshape</span><span class="p">(</span><span class="mi">1</span><span class="p">,</span> <span class="o">-</span><span class="mi">1</span><span class="p">)</span>
+    <span class="n">X</span> <span class="o">=</span> <span class="n">pd</span><span class="o">.</span><span class="n">DataFrame</span><span class="p">([</span><span class="n">data</span><span class="o">.</span><span class="n">model_dump</span><span class="p">()])</span>
     <span class="n">proba</span> <span class="o">=</span> <span class="n">model</span><span class="o">.</span><span class="n">predict_proba</span><span class="p">(</span><span class="n">X</span><span class="p">)[</span><span class="mi">0</span><span class="p">][</span><span class="mi">1</span><span class="p">]</span>
     <span class="k">return</span> <span class="p">{</span><span class="s2">&quot;heart_disease_probability&quot;</span><span class="p">:</span> <span class="n">proba</span><span class="p">,</span> <span class="s2">&quot;prediction&quot;</span><span class="p">:</span> <span class="nb">int</span><span class="p">(</span><span class="n">proba</span> <span class="o">&gt;</span> <span class="mf">0.5</span><span class="p">)}</span>
 </pre></div>
@@ -1032,10 +1278,11 @@ Mejores parámetros: {&#39;classifier__max_depth&#39;: 5, &#39;classifier__n_est
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="o">%%writefile</span> docker/requirements.txt
 <span class="n">fastapi</span>
 <span class="n">uvicorn</span>
-<span class="n">scikit</span><span class="o">-</span><span class="n">learn</span>
+<span class="n">scikit</span><span class="o">-</span><span class="n">learn</span><span class="o">==</span><span class="mf">1.7.2</span>
 <span class="n">joblib</span>
 <span class="n">pydantic</span>
 <span class="n">numpy</span>
+<span class="n">pandas</span>
 </pre></div>
 </div>
 </div>
@@ -1068,7 +1315,7 @@ Mejores parámetros: {&#39;classifier__max_depth&#39;: 5, &#39;classifier__n_est
 docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span>heart-disease-mlops
 </pre></div>
 </div>
-<p><img alt="image.png" src="Tarea_2/Heart_Predition/attachment:image.png" /></p>
+<p><img alt="Evidencia 1" src="Tarea_2/Heart_Predition/1.png" /></p>
 </section>
 <section id="orquestacion-con-kubernetes">
 <h2>Orquestación con Kubernetes<a class="headerlink" href="#orquestacion-con-kubernetes" title="Link to this heading">#</a></h2>
@@ -1134,7 +1381,7 @@ kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> <
 kubectl<span class="w"> </span>get<span class="w"> </span>svc
 </pre></div>
 </div>
-<p><img alt="image.png" src="Tarea_2/Heart_Predition/attachment:image.png" /></p>
+<p><img alt="Evidencia 2" src="Tarea_2/Heart_Predition/2.png" /></p>
 <p>Heart-service ya está corriendo con EXTERNAL-IP: 172.18.0.2 en el puerto 80 (mapeado al 31215 del nodo).</p>
 </section>
 <section id="integracion-continua-con-github-actions">
@@ -1156,7 +1403,19 @@ kubectl<span class="w"> </span>get<span class="w"> </span>svc
 
 
 <span class="k">def</span><span class="w"> </span><span class="nf">test_predict_returns_prediction_field</span><span class="p">():</span>
-    <span class="n">sample</span> <span class="o">=</span> <span class="p">{</span><span class="s2">&quot;features&quot;</span><span class="p">:</span> <span class="p">[</span><span class="mi">54</span><span class="p">,</span> <span class="mi">130</span><span class="p">,</span> <span class="mi">246</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">150</span><span class="p">,</span> <span class="mf">1.0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">,</span> <span class="mi">0</span><span class="p">,</span> <span class="mi">1</span><span class="p">]}</span>
+    <span class="n">sample</span> <span class="o">=</span> <span class="p">{</span>
+        <span class="s2">&quot;Age&quot;</span><span class="p">:</span> <span class="mi">48</span><span class="p">,</span>
+        <span class="s2">&quot;Sex&quot;</span><span class="p">:</span> <span class="s2">&quot;F&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;ChestPainType&quot;</span><span class="p">:</span> <span class="s2">&quot;ASY&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;RestingBP&quot;</span><span class="p">:</span> <span class="mi">138</span><span class="p">,</span>
+        <span class="s2">&quot;Cholesterol&quot;</span><span class="p">:</span> <span class="mi">214</span><span class="p">,</span>
+        <span class="s2">&quot;FastingBS&quot;</span><span class="p">:</span> <span class="mi">0</span><span class="p">,</span>
+        <span class="s2">&quot;RestingECG&quot;</span><span class="p">:</span> <span class="s2">&quot;Normal&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;MaxHR&quot;</span><span class="p">:</span> <span class="mi">108</span><span class="p">,</span>
+        <span class="s2">&quot;ExerciseAngina&quot;</span><span class="p">:</span> <span class="s2">&quot;Y&quot;</span><span class="p">,</span>
+        <span class="s2">&quot;Oldpeak&quot;</span><span class="p">:</span> <span class="mf">1.5</span><span class="p">,</span>
+        <span class="s2">&quot;ST_Slope&quot;</span><span class="p">:</span> <span class="s2">&quot;Flat&quot;</span>
+    <span class="p">}</span>
     <span class="n">response</span> <span class="o">=</span> <span class="n">client</span><span class="o">.</span><span class="n">post</span><span class="p">(</span><span class="s2">&quot;/predict&quot;</span><span class="p">,</span> <span class="n">json</span><span class="o">=</span><span class="n">sample</span><span class="p">)</span>
     <span class="k">assert</span> <span class="n">response</span><span class="o">.</span><span class="n">status_code</span> <span class="o">==</span> <span class="mi">200</span>
     <span class="n">body</span> <span class="o">=</span> <span class="n">response</span><span class="o">.</span><span class="n">json</span><span class="p">()</span>
@@ -1208,9 +1467,6 @@ kubectl<span class="w"> </span>get<span class="w"> </span>svc
 </div>
 </div>
 </div>
-<blockquote>
-<div><p>Nota: <code class="docutils literal notranslate"><span class="pre">tests/test_api.py</span></code> requiere que <code class="docutils literal notranslate"><span class="pre">app/model.joblib</span></code> exista antes de correr las pruebas (se genera en la Etapa 2). Ajusta el vector de <code class="docutils literal notranslate"><span class="pre">features</span></code> de la prueba al orden real de columnas de tu <code class="docutils literal notranslate"><span class="pre">X</span></code>.</p>
-</div></blockquote>
 </section>
 <section id="etapa-6-monitoreo-de-deriva-de-datos-data-drift">
 <h2>Etapa 6. Monitoreo de deriva de datos (Data Drift)<a class="headerlink" href="#etapa-6-monitoreo-de-deriva-de-datos-data-drift" title="Link to this heading">#</a></h2>
@@ -1265,8 +1521,8 @@ kubectl<span class="w"> </span>get<span class="w"> </span>svc
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>API nueva de Evidently no disponible (ModuleNotFoundError: No module named &#39;evidently&#39;).
-API vieja de Evidently tampoco funcionó (ModuleNotFoundError: No module named &#39;evidently&#39;).
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>API nueva de Evidently no disponible (FileNotFoundError: [Errno 2] No such file or directory: &#39;data/drift_report.html&#39;).
+API vieja de Evidently tampoco funcionó (ModuleNotFoundError: No module named &#39;evidently.report&#39;).
 Se usa un análisis de deriva manual (prueba de Kolmogorov-Smirnov) como respaldo.
 </pre></div>
 </div>
@@ -1343,21 +1599,32 @@ Se usa un análisis de deriva manual (prueba de Kolmogorov-Smirnov) como respald
 </div>
 <div class="cell docutils container">
 <div class="cell_input docutils container">
-<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig</span><span class="p">,</span> <span class="n">ax</span> <span class="o">=</span> <span class="n">plt</span><span class="o">.</span><span class="n">subplots</span><span class="p">(</span><span class="n">figsize</span><span class="o">=</span><span class="p">(</span><span class="mi">8</span><span class="p">,</span> <span class="mi">5</span><span class="p">))</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">X_train</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;steelblue&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Train (referencia)&quot;</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-<span class="n">sns</span><span class="o">.</span><span class="n">histplot</span><span class="p">(</span><span class="n">X_test</span><span class="p">[</span><span class="s2">&quot;Age&quot;</span><span class="p">],</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;orange&quot;</span><span class="p">,</span> <span class="n">label</span><span class="o">=</span><span class="s2">&quot;Test (actual)&quot;</span><span class="p">,</span> <span class="n">kde</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span> <span class="n">stat</span><span class="o">=</span><span class="s2">&quot;density&quot;</span><span class="p">,</span> <span class="n">alpha</span><span class="o">=</span><span class="mf">0.5</span><span class="p">,</span> <span class="n">ax</span><span class="o">=</span><span class="n">ax</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">set_title</span><span class="p">(</span><span class="s2">&quot;Comparación de distribuciones - Age&quot;</span><span class="p">)</span>
-<span class="n">ax</span><span class="o">.</span><span class="n">legend</span><span class="p">()</span>
-<span class="n">plt</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
+<div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="n">fig_drift</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span>
+    <span class="n">pd</span><span class="o">.</span><span class="n">concat</span><span class="p">([</span>
+        <span class="n">X_train</span><span class="p">[[</span><span class="s2">&quot;Age&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">conjunto</span><span class="o">=</span><span class="s2">&quot;Train (referencia)&quot;</span><span class="p">),</span>
+        <span class="n">X_test</span><span class="p">[[</span><span class="s2">&quot;Age&quot;</span><span class="p">]]</span><span class="o">.</span><span class="n">assign</span><span class="p">(</span><span class="n">conjunto</span><span class="o">=</span><span class="s2">&quot;Test (actual)&quot;</span><span class="p">),</span>
+    <span class="p">]),</span>
+    <span class="n">x</span><span class="o">=</span><span class="s2">&quot;Age&quot;</span><span class="p">,</span> <span class="n">color</span><span class="o">=</span><span class="s2">&quot;conjunto&quot;</span><span class="p">,</span> <span class="n">barmode</span><span class="o">=</span><span class="s2">&quot;overlay&quot;</span><span class="p">,</span> <span class="n">histnorm</span><span class="o">=</span><span class="s2">&quot;probability density&quot;</span><span class="p">,</span>
+    <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Comparación de distribuciones - Age&quot;</span><span class="p">,</span>
+    <span class="n">color_discrete_map</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;Train (referencia)&quot;</span><span class="p">:</span> <span class="n">PALETA</span><span class="p">[</span><span class="s2">&quot;sky&quot;</span><span class="p">],</span> <span class="s2">&quot;Test (actual)&quot;</span><span class="p">:</span> <span class="n">PALETA</span><span class="p">[</span><span class="s2">&quot;coral&quot;</span><span class="p">]},</span>
+    <span class="n">opacity</span><span class="o">=</span><span class="mf">0.6</span>
+<span class="p">)</span>
+<span class="n">fig_drift</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">xaxis_title</span><span class="o">=</span><span class="s2">&quot;Edad&quot;</span><span class="p">,</span> <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">&quot;Densidad&quot;</span><span class="p">)</span>
+<span class="n">fig_drift</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
 </div>
 <div class="cell_output docutils container">
-<img alt="../../_images/e1c08766c051ec012ff0d0a875b69e735a6b1400c1cfbaa262b9e366e56f3321.png" src="../../_images/e1c08766c051ec012ff0d0a875b69e735a6b1400c1cfbaa262b9e366e56f3321.png" />
+<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\laure\AppData\Local\Temp\ipykernel_13084\2902509624.py:6: UserWarning:
+
+FigureCanvasAgg is non-interactive, and thus cannot be shown
+</pre></div>
+</div>
 </div>
 </div>
 <p><strong>Resultados:</strong> los histogramas de <code class="docutils literal notranslate"><span class="pre">Age</span></code> en train y test muestran una alta superposición, y (si Evidently o la prueba KS corrieron) los p-values de las variables numéricas no indican deriva severa. Esto sugiere que el modelo se aplica sobre una población similar a la de entrenamiento, lo cual es una señal positiva para su estabilidad en producción.</p>
 <p>Para un monitoreo real, este análisis debería ejecutarse periódicamente contra datos nuevos (no contra el propio test set), por ejemplo como un job programado que compare el tráfico reciente de la API contra el set de referencia.</p>
+<p>El frontend interactivo está publicado en: <a class="reference external" href="https://lauraformore.github.io/Heart_Predition_ML/">https://lauraformore.github.io/Heart_Predition_ML/</a></p>
 </section>
 <section id="conclusiones-generales">
 <h2>Conclusiones generales<a class="headerlink" href="#conclusiones-generales" title="Link to this heading">#</a></h2>

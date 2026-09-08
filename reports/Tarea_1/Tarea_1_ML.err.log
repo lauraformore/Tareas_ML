@@ -50,9 +50,9 @@ fi
 ------------------
 
 ----- stderr -----
-<3>WSL (24283 - Relay) ERROR: CreateProcessCommon:818: execvpe(/bin/bash) failed: No such file or di
+<3>WSL (9 - Relay) ERROR: CreateProcessCommon:818: execvpe(/bin/bash) failed: No such file or direct
 ----- stderr -----
-rectory
+ory
 ------------------
 
 [31m---------------------------------------------------------------------------[39m
