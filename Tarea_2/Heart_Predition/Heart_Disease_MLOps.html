@@ -458,6 +458,8 @@
 <span class="kn">import</span><span class="w"> </span><span class="nn">seaborn</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">sns</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">joblib</span>
 <span class="kn">import</span><span class="w"> </span><span class="nn">os</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.express</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">px</span>
+<span class="kn">import</span><span class="w"> </span><span class="nn">plotly.graph_objects</span><span class="w"> </span><span class="k">as</span><span class="w"> </span><span class="nn">go</span>
 
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.model_selection</span><span class="w"> </span><span class="kn">import</span> <span class="n">train_test_split</span><span class="p">,</span> <span class="n">GridSearchCV</span><span class="p">,</span> <span class="n">StratifiedKFold</span>
 <span class="kn">from</span><span class="w"> </span><span class="nn">sklearn.pipeline</span><span class="w"> </span><span class="kn">import</span> <span class="n">Pipeline</span>
@@ -642,7 +644,8 @@ Forma del dataset: (918, 12)
 <div class="highlight-ipython3 notranslate"><div class="highlight"><pre><span></span><span class="k">try</span><span class="p">:</span>
     <span class="kn">from</span><span class="w"> </span><span class="nn">ydata_profiling</span><span class="w"> </span><span class="kn">import</span> <span class="n">ProfileReport</span>
     <span class="n">profile</span> <span class="o">=</span> <span class="n">ProfileReport</span><span class="p">(</span><span class="n">df</span><span class="p">,</span> <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Informe de los datos - Heart Failure&quot;</span><span class="p">,</span> <span class="n">explorative</span><span class="o">=</span><span class="kc">True</span><span class="p">)</span>
-    <span class="n">profile</span><span class="o">.</span><span class="n">to_notebook_iframe</span><span class="p">()</span>
+    <span class="n">profile</span><span class="o">.</span><span class="n">to_file</span><span class="p">(</span><span class="s2">&quot;eda_report.html&quot;</span><span class="p">)</span>
+    <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;Informe guardado en eda_report.html — ábrelo en el navegador o desde el repo.&quot;</span><span class="p">)</span>
 <span class="k">except</span> <span class="ne">ImportError</span><span class="p">:</span>
     <span class="nb">print</span><span class="p">(</span><span class="s2">&quot;ydata_profiling no está instalado; se omite el informe automático (pip install ydata-profiling).&quot;</span><span class="p">)</span>
 </pre></div>
@@ -654,6 +657,7 @@ Forma del dataset: (918, 12)
 </div>
 </div>
 </div>
+<p><a class="reference download internal" download="" href="../../_downloads/659492c3db0025dc604a15ec74c62076/eda_report.html"><span class="xref download myst">Ver informe completo de EDA (HTML interactivo)</span></a></p>
 </section>
 <section id="hallazgos-del-eda">
 <h3>1.4 Hallazgos del EDA<a class="headerlink" href="#hallazgos-del-eda" title="Link to this heading">#</a></h3>
@@ -701,25 +705,6 @@ Forma del dataset: (918, 12)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output traceback highlight-ipythontb notranslate"><div class="highlight"><pre><span></span><span class="gt">---------------------------------------------------------------------------</span>
-<span class="ne">NameError</span><span class="g g-Whitespace">                                 </span>Traceback (most recent call last)
-<span class="n">Cell</span> <span class="n">In</span><span class="p">[</span><span class="mi">5</span><span class="p">],</span> <span class="n">line</span> <span class="mi">13</span>
-<span class="g g-Whitespace">     </span><span class="mi">10</span> <span class="n">df_plot</span> <span class="o">=</span> <span class="n">df</span><span class="o">.</span><span class="n">copy</span><span class="p">()</span>
-<span class="g g-Whitespace">     </span><span class="mi">11</span> <span class="n">df_plot</span><span class="p">[</span><span class="s2">&quot;HeartDisease&quot;</span><span class="p">]</span> <span class="o">=</span> <span class="n">df_plot</span><span class="p">[</span><span class="s2">&quot;HeartDisease&quot;</span><span class="p">]</span><span class="o">.</span><span class="n">map</span><span class="p">({</span><span class="mi">0</span><span class="p">:</span> <span class="s2">&quot;No enfermedad&quot;</span><span class="p">,</span> <span class="mi">1</span><span class="p">:</span> <span class="s2">&quot;Enfermedad&quot;</span><span class="p">})</span>
-<span class="ne">---&gt; </span><span class="mi">13</span> <span class="n">fig</span> <span class="o">=</span> <span class="n">px</span><span class="o">.</span><span class="n">histogram</span><span class="p">(</span>
-<span class="g g-Whitespace">     </span><span class="mi">14</span>     <span class="n">df_plot</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">15</span>     <span class="n">x</span><span class="o">=</span><span class="s2">&quot;HeartDisease&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">16</span>     <span class="n">color</span><span class="o">=</span><span class="s2">&quot;HeartDisease&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">17</span>     <span class="n">title</span><span class="o">=</span><span class="s2">&quot;Distribución de la variable objetivo (HeartDisease)&quot;</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">18</span>     <span class="n">text_auto</span><span class="o">=</span><span class="kc">True</span><span class="p">,</span>
-<span class="g g-Whitespace">     </span><span class="mi">19</span>     <span class="n">color_discrete_map</span><span class="o">=</span><span class="p">{</span><span class="s2">&quot;No enfermedad&quot;</span><span class="p">:</span> <span class="n">PALETA</span><span class="p">[</span><span class="s2">&quot;sky&quot;</span><span class="p">],</span> <span class="s2">&quot;Enfermedad&quot;</span><span class="p">:</span> <span class="n">PALETA</span><span class="p">[</span><span class="s2">&quot;tomato&quot;</span><span class="p">]}</span>
-<span class="g g-Whitespace">     </span><span class="mi">20</span> <span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">21</span> <span class="n">fig</span><span class="o">.</span><span class="n">update_layout</span><span class="p">(</span><span class="n">bargap</span><span class="o">=</span><span class="mf">0.2</span><span class="p">,</span> <span class="n">showlegend</span><span class="o">=</span><span class="kc">False</span><span class="p">,</span> <span class="n">xaxis_title</span><span class="o">=</span><span class="s2">&quot;&quot;</span><span class="p">,</span> <span class="n">yaxis_title</span><span class="o">=</span><span class="s2">&quot;Pacientes&quot;</span><span class="p">)</span>
-<span class="g g-Whitespace">     </span><span class="mi">22</span> <span class="n">fig</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
-
-<span class="ne">NameError</span>: name &#39;px&#39; is not defined
-</pre></div>
-</div>
 </div>
 </div>
 </section>
@@ -784,136 +769,8 @@ Forma del dataset: (918, 12)
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>AUC con fuga de datos : 0.9275
 AUC sin fuga de datos : 0.9279
-</pre></div>
-</div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
 </pre></div>
 </div>
 </div>
@@ -1014,19 +871,21 @@ Prueba: 184 muestras
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>Entrenando SVC...
 </pre></div>
 </div>
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>c:\Users\laure\anaconda3\envs\MlP\Lib\site-packages\sklearn\svm\_base.py:239: FutureWarning: The `probability` parameter was deprecated in 1.9 and will be removed in version 1.11. Use `CalibratedClassifierCV(SVC(), ensemble=False)` instead of `SVC(probability=True)`
-  warnings.warn(
-</pre></div>
-</div>
 <div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  AUC (test): 0.9279 | Accuracy: 0.8913
 Entrenando LogisticRegression...
   AUC (test): 0.9293 | Accuracy: 0.8859
 Entrenando RandomForest...
-  AUC (test): 0.9358 | Accuracy: 0.8967
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  AUC (test): 0.9358 | Accuracy: 0.8967
 Entrenando KNN...
-  AUC (test): 0.9296 | Accuracy: 0.8696
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  AUC (test): 0.9296 | Accuracy: 0.8696
 Entrenando GradientBoosting...
-  AUC (test): 0.9308 | Accuracy: 0.9076
+</pre></div>
+</div>
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>  AUC (test): 0.9308 | Accuracy: 0.9076
 </pre></div>
 </div>
 </div>
@@ -1170,12 +1029,6 @@ Mejores parámetros: {&#39;classifier__max_depth&#39;: 5, &#39;classifier__n_est
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\laure\AppData\Local\Temp\ipykernel_13084\1388588237.py:5: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
-  plt.show()
-C:\Users\laure\AppData\Local\Temp\ipykernel_13084\1388588237.py:10: UserWarning: FigureCanvasAgg is non-interactive, and thus cannot be shown
-  plt.show()
-</pre></div>
-</div>
 </div>
 </div>
 <div class="cell docutils container">
@@ -1204,6 +1057,8 @@ C:\Users\laure\AppData\Local\Temp\ipykernel_13084\1388588237.py:10: UserWarning:
 <span class="n">fig_roc</span><span class="o">.</span><span class="n">show</span><span class="p">()</span>
 </pre></div>
 </div>
+</div>
+<div class="cell_output docutils container">
 </div>
 </div>
 </section>
@@ -1315,7 +1170,7 @@ C:\Users\laure\AppData\Local\Temp\ipykernel_13084\1388588237.py:10: UserWarning:
 docker<span class="w"> </span>run<span class="w"> </span>-p<span class="w"> </span><span class="m">8000</span>:8000<span class="w"> </span>heart-disease-mlops
 </pre></div>
 </div>
-<p><img alt="Evidencia 1" src="Tarea_2/Heart_Predition/1.png" /></p>
+<p><img alt="Evidencia 1" src="Tarea_2/Heart_Predition/Imagenes%5C1.png" /></p>
 </section>
 <section id="orquestacion-con-kubernetes">
 <h2>Orquestación con Kubernetes<a class="headerlink" href="#orquestacion-con-kubernetes" title="Link to this heading">#</a></h2>
@@ -1381,7 +1236,7 @@ kubectl<span class="w"> </span>apply<span class="w"> </span>-f<span class="w"> <
 kubectl<span class="w"> </span>get<span class="w"> </span>svc
 </pre></div>
 </div>
-<p><img alt="Evidencia 2" src="Tarea_2/Heart_Predition/2.png" /></p>
+<p><img alt="Evidencia 2" src="Tarea_2/Heart_Predition/Imagenes%5C2.png" /></p>
 <p>Heart-service ya está corriendo con EXTERNAL-IP: 172.18.0.2 en el puerto 80 (mapeado al 31215 del nodo).</p>
 </section>
 <section id="integracion-continua-con-github-actions">
@@ -1521,8 +1376,8 @@ kubectl<span class="w"> </span>get<span class="w"> </span>svc
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>API nueva de Evidently no disponible (FileNotFoundError: [Errno 2] No such file or directory: &#39;data/drift_report.html&#39;).
-API vieja de Evidently tampoco funcionó (ModuleNotFoundError: No module named &#39;evidently.report&#39;).
+<div class="output stream highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>API nueva de Evidently no disponible (ModuleNotFoundError: No module named &#39;evidently&#39;).
+API vieja de Evidently tampoco funcionó (ModuleNotFoundError: No module named &#39;evidently&#39;).
 Se usa un análisis de deriva manual (prueba de Kolmogorov-Smirnov) como respaldo.
 </pre></div>
 </div>
@@ -1615,11 +1470,6 @@ Se usa un análisis de deriva manual (prueba de Kolmogorov-Smirnov) como respald
 </div>
 </div>
 <div class="cell_output docutils container">
-<div class="output stderr highlight-myst-ansi notranslate"><div class="highlight"><pre><span></span>C:\Users\laure\AppData\Local\Temp\ipykernel_13084\2902509624.py:6: UserWarning:
-
-FigureCanvasAgg is non-interactive, and thus cannot be shown
-</pre></div>
-</div>
 </div>
 </div>
 <p><strong>Resultados:</strong> los histogramas de <code class="docutils literal notranslate"><span class="pre">Age</span></code> en train y test muestran una alta superposición, y (si Evidently o la prueba KS corrieron) los p-values de las variables numéricas no indican deriva severa. Esto sugiere que el modelo se aplica sobre una población similar a la de entrenamiento, lo cual es una señal positiva para su estabilidad en producción.</p>
